@@ -89,9 +89,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mcw-HE-G3l">
-                                <rect key="frame" x="168" y="466" width="38" height="30"/>
+                                <rect key="frame" x="170" y="540" width="34" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Login"/>
+                                <state key="normal" title="Back"/>
                                 <connections>
                                     <segue destination="a2e-xo-etz" kind="show" id="A6g-ir-z7F"/>
                                 </connections>
@@ -126,8 +126,23 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="W5N-6g-bO8">
+                                <rect key="frame" x="102" y="121" width="167" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.84210386270000004" green="0.84210386270000004" blue="0.84210386270000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0lh-bJ-Jzc">
+                                <rect key="frame" x="146" y="79" width="79" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1sz-7o-IW6">
-                                <rect key="frame" x="160" y="528" width="55" height="30"/>
+                                <rect key="frame" x="158" y="488" width="55" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="SIgn Up"/>
                             </button>
@@ -135,6 +150,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="NQA-vp-nl6"/>
                     </view>
+                    <connections>
+                        <outlet property="emailField" destination="hwj-cv-GYR" id="mey-56-9VE"/>
+                        <outlet property="passwordField" destination="dTt-CS-Qgq" id="AWj-S6-Spw"/>
+                        <outlet property="signUpButton" destination="1sz-7o-IW6" id="mLu-BJ-W6t"/>
+                        <outlet property="usernameField" destination="W5N-6g-bO8" id="Kko-Vv-5um"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eIn-Zk-Edi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
