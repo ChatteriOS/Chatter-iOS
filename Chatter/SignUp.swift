@@ -1,15 +1,15 @@
 //
-//  Login.swift
+//  SignUp.swift
 //  Chatter
 //
-//  Created by Austen Ma on 2/26/18.
+//  Created by Austen Ma on 2/27/18.
 //  Copyright © 2018 Austen Ma. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-class Login: UIViewController {
+class SignUp: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()

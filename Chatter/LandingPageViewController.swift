@@ -79,3 +79,18 @@ extension LandingPageViewController: UIPageViewControllerDataSource
 }
 
 extension LandingPageViewController: UIPageViewControllerDelegate { }
+
+
+// For Tapping Out of Keyboard View
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
