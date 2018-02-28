@@ -35,7 +35,7 @@ class SignUp: UIViewController {
         
         Auth.auth().createUser(withEmail: email, password: password) { user, error in
             if error == nil && user != nil {
-                print("User created!")
+                print("User created! \n\(user)")
             }   else {
                 print("Error:\(error!.localizedDescription)")
             }

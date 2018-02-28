@@ -30,13 +30,13 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Login"/>
                                 <connections>
-                                    <segue destination="VWf-RC-Qzv" kind="show" id="UC9-HD-Llt"/>
+                                    <action selector="loginClickedWithSender:" destination="a2e-xo-etz" eventType="touchUpInside" id="w9u-RX-IvS"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bHb-mu-LGm">
                                 <rect key="frame" x="160" y="522" width="55" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="SIgn Up"/>
+                                <state key="normal" title="Sign Up"/>
                                 <connections>
                                     <segue destination="sUZ-UY-yMf" kind="show" id="noe-eE-oZO"/>
                                 </connections>
@@ -75,6 +75,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="ovn-v2-vD1"/>
                     </view>
+                    <connections>
+                        <outlet property="emailField" destination="7GD-Od-3xr" id="0gr-wR-1i3"/>
+                        <outlet property="loginButton" destination="dAK-4f-rle" id="L3P-L6-rGt"/>
+                        <outlet property="passwordField" destination="zfp-9P-pUl" id="sZd-TQ-B2j"/>
+                        <segue destination="VWf-RC-Qzv" kind="show" identifier="loginToLanding" id="LRn-rX-MYf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DW0-94-Btc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -144,7 +150,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1sz-7o-IW6">
                                 <rect key="frame" x="158" y="488" width="55" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="SIgn Up"/>
+                                <state key="normal" title="Sign Up"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -161,51 +167,45 @@
             </objects>
             <point key="canvasLocation" x="537" y="466"/>
         </scene>
-        <!--Landing Record-->
+        <!--Landing-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="LandingRecord" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="LandingRecord" customModule="Chatter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LandingPage" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="Landing" customModule="Chatter" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNf-qh-vC7" userLabel="ProfileButton">
-                                <rect key="frame" x="16" y="13" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FC0-h2-JjX">
+                                <rect key="frame" x="0.0" y="518" width="375" height="149"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <color key="backgroundColor" red="0.66632966391073589" green="0.45810505762773263" blue="0.91730084196891193" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <state key="normal" title="Tap for Chatter">
+                                    <color key="titleColor" red="0.86230302073177278" green="0.86230302073177278" blue="0.86230302073177278" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="showMessageWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nTT-4p-hW2"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pvV-bQ-HtT">
-                                <rect key="frame" x="313" y="13" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Chatter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bsM-7l-y0L">
-                                <rect key="frame" x="157" y="-20.5" width="61" height="20.5"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q14-6C-HdF" userLabel="recButton">
-                                <rect key="frame" x="137" y="283" width="100" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.73277722598276662" green="0.5014091779059433" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <accessibility key="accessibilityConfiguration" identifier="recButton" label="recButton"/>
-                                <fontDescription key="fontDescription" name="LucidaGrande" family="Lucida Grande" pointSize="48"/>
-                                <state key="normal" image="Record"/>
-                            </button>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kmY-9n-csp">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="521"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="Nqu-23-wci" kind="embed" identifier="goToChatter" id="pE9-7b-dQX"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="recButton" destination="q14-6C-HdF" id="NbE-xt-5lR"/>
+                        <outlet property="chatterButton" destination="FC0-h2-JjX" id="bRe-vN-Sej"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1482" y="-340"/>
+            <point key="canvasLocation" x="1480.8" y="-340.47976011994007"/>
         </scene>
         <!--Discover Feed-->
         <scene sceneID="iSk-eK-G1I">
@@ -238,8 +238,82 @@
             </objects>
             <point key="canvasLocation" x="1481" y="394"/>
         </scene>
+        <!--Landing Record-->
+        <scene sceneID="n79-xy-DGq">
+            <objects>
+                <viewController id="Nqu-23-wci" customClass="LandingRecord" customModule="Chatter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NpF-id-SPE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="521"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ssI-eQ-NMU">
+                                <rect key="frame" x="0.0" y="20" width="375" height="62"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Chatter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eGu-cv-qO2">
+                                        <rect key="frame" x="131" y="26" width="112" height="26"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="31"/>
+                                        <color key="textColor" red="0.73277722599999995" green="0.50140917789999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wqd-zU-KWI">
+                                        <rect key="frame" x="15" y="9" width="58" height="58"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button" image="Image"/>
+                                        <connections>
+                                            <action selector="animateButtonWithSender:" destination="Nqu-23-wci" eventType="touchUpInside" id="Bhu-gf-Abl"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pvV-bQ-HtT">
+                                        <rect key="frame" x="311" y="20" width="49" height="46"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button" image="Chatterbox"/>
+                                        <connections>
+                                            <action selector="animateButtonWithSender:" destination="Nqu-23-wci" eventType="touchUpInside" id="OKP-M6-Ioc"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fy0-rO-EQi">
+                                <rect key="frame" x="187" y="309" width="13" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WB9-Sy-rAF">
+                                <rect key="frame" x="95" y="216" width="184" height="184"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q14-6C-HdF" userLabel="recButton">
+                                <rect key="frame" x="82" y="204" width="211" height="208"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <accessibility key="accessibilityConfiguration" identifier="recButton" label="recButton"/>
+                                <fontDescription key="fontDescription" name="LucidaGrande" family="Lucida Grande" pointSize="48"/>
+                                <state key="normal" image="PurpleButton"/>
+                                <connections>
+                                    <action selector="animateRecButtonWithSender:" destination="Nqu-23-wci" eventType="touchUpInside" id="HYL-xe-0wW"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Did-Uw-ajx"/>
+                    </view>
+                    <connections>
+                        <outlet property="pulseView" destination="fy0-rO-EQi" id="VI3-Cg-vla"/>
+                        <outlet property="recButton" destination="q14-6C-HdF" id="zfr-vV-EM5"/>
+                        <outlet property="recButtonCover" destination="WB9-Sy-rAF" id="Ofj-TH-1bd"/>
+                        <outlet property="topNavView" destination="ssI-eQ-NMU" id="qH2-4C-n6n"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mRl-F6-Ksn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2392.8000000000002" y="-405.24737631184411"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="Record" width="50" height="50"/>
+        <image name="Chatterbox" width="50" height="50"/>
+        <image name="Image" width="60" height="56"/>
+        <image name="PurpleButton" width="300" height="300"/>
     </resources>
 </document>
