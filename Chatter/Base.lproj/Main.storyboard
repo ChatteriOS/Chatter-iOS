@@ -242,11 +242,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HDK-wT-sgF">
-                                <rect key="frame" x="329" y="0.0" width="46" height="521"/>
+                                <rect key="frame" x="305" y="0.0" width="70" height="521"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="closeMenu:" destination="7Of-1v-8UD" eventType="touchUpInside" id="6uF-es-iHS"/>
+                                    <outletCollection property="gestureRecognizers" destination="mXd-NZ-w0z" appends="YES" id="MbI-zI-6TH"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -255,6 +257,11 @@
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eyp-SV-3cg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="mXd-NZ-w0z">
+                    <connections>
+                        <action selector="handleGesture:" destination="7Of-1v-8UD" id="UI1-VG-zo3"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1480.8" y="393.55322338830587"/>
         </scene>
@@ -293,6 +300,7 @@
                                         <state key="normal" title="Button" image="Chatterbox"/>
                                         <connections>
                                             <action selector="animateButtonWithSender:" destination="Nqu-23-wci" eventType="touchUpInside" id="OKP-M6-Ioc"/>
+                                            <segue destination="TN5-vY-749" kind="show" id="08X-0g-l7L"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -320,7 +328,11 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="Did-Uw-ajx"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="pY2-y6-ZZA" appends="YES" id="hfY-cE-DKS"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="pulseView" destination="fy0-rO-EQi" id="VI3-Cg-vla"/>
@@ -330,8 +342,40 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mRl-F6-Ksn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <screenEdgePanGestureRecognizer minimumNumberOfTouches="1" id="pY2-y6-ZZA">
+                    <rectEdge key="edges" left="YES"/>
+                    <connections>
+                        <action selector="edgePanGesture:" destination="Nqu-23-wci" id="cJx-Af-wwy"/>
+                    </connections>
+                </screenEdgePanGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2393" y="-633"/>
+        </scene>
+        <!--Chatter Box-->
+        <scene sceneID="m6T-8o-SLC">
+            <objects>
+                <viewController id="TN5-vY-749" customClass="ChatterBox" customModule="Chatter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mzi-GN-vM6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="521"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0dt-pq-9mr">
+                                <rect key="frame" x="26" y="39" width="42" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="LeftPointingArrow"/>
+                                <connections>
+                                    <action selector="animateButtonWithSender:" destination="TN5-vY-749" eventType="touchUpInside" id="b81-mm-At3"/>
+                                    <segue destination="VWf-RC-Qzv" kind="show" id="H6O-gC-yCt"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.70539306550000003" blue="0.36388605130000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="QHy-P5-6IW"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="blC-9l-wV3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3485.5999999999999" y="-568.06596701649175"/>
         </scene>
         <!--Chatter Feed-->
         <scene sceneID="KGV-XE-T2d">
@@ -342,7 +386,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eeb-8Z-trk">
-                                <rect key="frame" x="28" y="40" width="41" height="40"/>
+                                <rect key="frame" x="22" y="40" width="41" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <state key="normal" image="LeftPointingArrow"/>
@@ -366,4 +410,7 @@
         <image name="PurpleButton" width="300" height="300"/>
         <image name="RobotProfile" width="60" height="56"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="H6O-gC-yCt"/>
+    </inferredMetricsTieBreakers>
 </document>
