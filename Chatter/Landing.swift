@@ -11,12 +11,10 @@ import AVFoundation
 import Pulsator
 import AudioToolbox
 
-class Landing: UIViewController {
+class Landing: UIViewController, SwitchRecChatterViewDelegate {
     @IBOutlet weak var recordView: UIView!
     @IBOutlet weak var chatterFeedView: UIView!
     @IBOutlet weak var chatterButton: UIButton!
-    
-    var currView = "recordView"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,9 +41,26 @@ class Landing: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? ChatterFeed {
+            destination.switchDelegate = self
+        }
+    }
+    
     @IBAction func hearChatter(sender: UIButton) {
         AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-        if (currView == "recordView") {
+        
+        SwitchRecChatterView(toPage: "chatterView")
+    }
+    
+    
+    func SwitchRecChatterView(toPage: String) {
+        if (toPage == "recordView") {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.chatterFeedView.alpha = 0.0
+                self.recordView.alpha = 1.0
+            })
+        }   else {
             UIView.animate(withDuration: 0.5, animations: {
                 self.chatterFeedView.alpha = 1.0
                 self.recordView.alpha = 0.0

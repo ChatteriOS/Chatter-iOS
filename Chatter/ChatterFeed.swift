@@ -9,7 +9,13 @@
 import Foundation
 import UIKit
 
+protocol SwitchRecChatterViewDelegate
+{
+    func SwitchRecChatterView(toPage: String)
+}
+
 class ChatterFeed: UIViewController {
+    var switchDelegate:SwitchRecChatterViewDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +28,7 @@ class ChatterFeed: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func animateRecButton(sender: UIButton) {
+    @IBAction func animateButton(sender: UIButton) {
         
         sender.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         
@@ -36,5 +42,7 @@ class ChatterFeed: UIViewController {
         },
                        completion: { Void in()  }
         )
+        
+        switchDelegate?.SwitchRecChatterView(toPage: "recordView")
     }
 }

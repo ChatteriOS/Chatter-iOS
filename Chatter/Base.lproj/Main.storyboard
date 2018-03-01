@@ -335,8 +335,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <state key="normal" image="LeftPointingArrow"/>
                                 <connections>
-                                    <action selector="animateRecButtonWithSender:" destination="Iur-Jm-rHX" eventType="touchUpInside" id="Fcb-1e-C0B"/>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="aiv-uG-3bo"/>
+                                    <action selector="animateButtonWithSender:" destination="Iur-Jm-rHX" eventType="touchUpInside" id="35j-OG-fkH"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -355,7 +354,4 @@
         <image name="PurpleButton" width="300" height="300"/>
         <image name="RobotProfile" width="60" height="56"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="aiv-uG-3bo"/>
-    </inferredMetricsTieBreakers>
 </document>
