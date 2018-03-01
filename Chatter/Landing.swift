@@ -12,7 +12,11 @@ import Pulsator
 import AudioToolbox
 
 class Landing: UIViewController {
+    @IBOutlet weak var recordView: UIView!
+    @IBOutlet weak var chatterFeedView: UIView!
     @IBOutlet weak var chatterButton: UIButton!
+    
+    var currView = "recordView"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,8 +43,14 @@ class Landing: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func showMessage(sender: UIButton) {
+    @IBAction func hearChatter(sender: UIButton) {
         AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+        if (currView == "recordView") {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.chatterFeedView.alpha = 1.0
+                self.recordView.alpha = 0.0
+            })
+        }
     }
     
 //    @IBAction func showMessage(sender: UIButton) {
