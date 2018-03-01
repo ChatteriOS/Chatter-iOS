@@ -68,18 +68,6 @@ class Landing: UIViewController, SwitchRecChatterViewDelegate {
         }
     }
     
-//    @IBAction func showMessage(sender: UIButton) {
-//        let selectedButton = sender
-//
-//        if (selectedButton.titleLabel?.text) != nil {
-//
-//            let alertController = UIAlertController(title: "Welcome to My First App", message: "Clicked the button!", preferredStyle: UIAlertControllerStyle.alert)
-//            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-//            present(alertController, animated: true, completion: nil)
-//
-//        }
-//    }
-    
 //    Audio Record Control --------------------------------------
     
 //    var recordButton = UIButton()

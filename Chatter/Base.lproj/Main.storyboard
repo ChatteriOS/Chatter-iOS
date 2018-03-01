@@ -165,7 +165,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eIn-Zk-Edi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="537" y="466"/>
+            <point key="canvasLocation" x="-239" y="448"/>
         </scene>
         <!--Landing-->
         <scene sceneID="tne-QT-ifu">
@@ -238,15 +238,25 @@
             <objects>
                 <viewController storyboardIdentifier="Profile" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7Of-1v-8UD" customClass="Profile" customModule="Chatter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CNA-C3-Gda">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="521"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HDK-wT-sgF">
+                                <rect key="frame" x="329" y="0.0" width="46" height="521"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="closeMenu:" destination="7Of-1v-8UD" eventType="touchUpInside" id="6uF-es-iHS"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="0.50996785277664292" green="1" blue="0.34206565406454126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="MPQ-Js-hIa"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eyp-SV-3cg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1481" y="394"/>
+            <point key="canvasLocation" x="1480.8" y="393.55322338830587"/>
         </scene>
         <!--Landing Record-->
         <scene sceneID="n79-xy-DGq">
@@ -273,6 +283,8 @@
                                         <state key="normal" title="Button" image="RobotProfile"/>
                                         <connections>
                                             <action selector="animateButtonWithSender:" destination="Nqu-23-wci" eventType="touchUpInside" id="Bhu-gf-Abl"/>
+                                            <action selector="openMenuWithSender:" destination="Nqu-23-wci" eventType="touchUpInside" id="40x-EK-z9c"/>
+                                            <segue destination="7Of-1v-8UD" kind="presentation" identifier="openMenu" id="Xx8-X8-aRC"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pvV-bQ-HtT">
@@ -330,7 +342,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eeb-8Z-trk">
-                                <rect key="frame" x="16" y="34" width="41" height="40"/>
+                                <rect key="frame" x="28" y="40" width="41" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <state key="normal" image="LeftPointingArrow"/>

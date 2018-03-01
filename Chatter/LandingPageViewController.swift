@@ -17,7 +17,7 @@ class LandingPageViewController: UIPageViewController {
     
     fileprivate lazy var pages: [UIViewController] = {
         return [
-            self.getViewController(withIdentifier: "Profile"),
+//            self.getViewController(withIdentifier: "Profile"),
             self.getViewController(withIdentifier: "LandingPage"),
             self.getViewController(withIdentifier: "DiscoverFeed")
         ]
@@ -34,17 +34,8 @@ class LandingPageViewController: UIPageViewController {
         self.dataSource = self
         self.delegate   = self
         
-        setViewControllers([pages[1]], direction: .forward, animated: true, completion: nil)
+        setViewControllers([pages[0]], direction: .forward, animated: true, completion: nil)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 

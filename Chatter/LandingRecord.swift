@@ -12,6 +12,11 @@ import Pulsator
 import AVFoundation
 import AudioToolbox
 
+protocol MenuActionDelegate {
+    func openSegue(_ segueName: String, sender: AnyObject?)
+    func reopenMenu()
+}
+
 class LandingRecord: UIViewController {
     
     @IBOutlet weak var topNavView: UIView!
@@ -20,6 +25,7 @@ class LandingRecord: UIViewController {
     @IBOutlet weak var recButton: UIButton!
 
     let pulsator = Pulsator()
+    let interactor = Interactor()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,6 +87,31 @@ class LandingRecord: UIViewController {
                        completion: { Void in()  }
         )
     }
+    
+    @IBAction func openMenu(sender: AnyObject) {
+        performSegue(withIdentifier: "openMenu", sender: nil)
+    }
+    
+    @IBAction func edgePanGesture(_ sender: UIScreenEdgePanGestureRecognizer) {
+        let translation = sender.translation(in: view)
+        
+        let progress = MenuHelper.calculateProgress(translation, viewBounds: view.bounds, direction: .right)
+        
+        MenuHelper.mapGestureStateToInteractor(
+            sender.state,
+            progress: progress,
+            interactor: interactor){
+                self.performSegue(withIdentifier: "openMenu", sender: nil)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationViewController = segue.destination as? Profile {
+            destinationViewController.transitioningDelegate = self
+            destinationViewController.interactor = interactor
+            destinationViewController.menuActionDelegate = self
+        }
+    }
 
     //    UI Configuration --------------------------------------
 
@@ -93,4 +124,33 @@ class LandingRecord: UIViewController {
         recButtonCover.clipsToBounds = true
     }
 
+}
+
+extension LandingRecord: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return PresentMenuAnimator()
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return DismissMenuAnimator()
+    }
+    
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactor.hasStarted ? interactor : nil
+    }
+    
+    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactor.hasStarted ? interactor : nil
+    }
+}
+
+extension LandingRecord: MenuActionDelegate {
+    func openSegue(_ segueName: String, sender: AnyObject?) {
+        dismiss(animated: true){
+            self.performSegue(withIdentifier: segueName, sender: sender)
+        }
+    }
+    func reopenMenu(){
+        performSegue(withIdentifier: "openMenu", sender: nil)
+    }
 }
