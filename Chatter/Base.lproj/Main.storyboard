@@ -245,7 +245,7 @@
                                 <rect key="frame" x="305" y="0.0" width="70" height="521"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Close"/>
                                 <connections>
                                     <action selector="closeMenu:" destination="7Of-1v-8UD" eventType="touchUpInside" id="6uF-es-iHS"/>
                                     <outletCollection property="gestureRecognizers" destination="mXd-NZ-w0z" appends="YES" id="MbI-zI-6TH"/>
@@ -300,7 +300,9 @@
                                         <state key="normal" title="Button" image="Chatterbox"/>
                                         <connections>
                                             <action selector="animateButtonWithSender:" destination="Nqu-23-wci" eventType="touchUpInside" id="OKP-M6-Ioc"/>
-                                            <segue destination="TN5-vY-749" kind="show" id="08X-0g-l7L"/>
+                                            <segue destination="TN5-vY-749" kind="popoverPresentation" popoverAnchorView="pvV-bQ-HtT" id="xYG-hn-DLy">
+                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                            </segue>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -368,14 +370,37 @@
                                     <segue destination="VWf-RC-Qzv" kind="show" id="H6O-gC-yCt"/>
                                 </connections>
                             </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nhs-bE-zbe">
+                                <rect key="frame" x="0.0" y="114" width="375" height="553"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </scrollView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.70539306550000003" blue="0.36388605130000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="QHy-P5-6IW"/>
                     </view>
+                    <connections>
+                        <outlet property="chatterBoxView" destination="mzi-GN-vM6" id="Wk4-iV-r1b"/>
+                        <outlet property="chatterScrollView" destination="nhs-bE-zbe" id="IL2-wg-di4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="blC-9l-wV3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3485.5999999999999" y="-568.06596701649175"/>
+            <point key="canvasLocation" x="3517.5999999999999" y="-612.14392803598207"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="3Av-91-13G">
+            <objects>
+                <viewController id="aik-kN-zQA" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BoO-Dg-6aj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="pC6-5Y-jZ9"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cHV-pu-D6g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4300" y="-636"/>
         </scene>
         <!--Chatter Feed-->
         <scene sceneID="KGV-XE-T2d">
@@ -394,10 +419,17 @@
                                     <action selector="animateButtonWithSender:" destination="Iur-Jm-rHX" eventType="touchUpInside" id="35j-OG-fkH"/>
                                 </connections>
                             </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mD0-KG-g80">
+                                <rect key="frame" x="0.0" y="88" width="375" height="433"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="XH5-Kt-gTi"/>
                     </view>
+                    <connections>
+                        <outlet property="chatterScrollView" destination="mD0-KG-g80" id="xh6-aB-1vE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="04Q-5P-4FY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

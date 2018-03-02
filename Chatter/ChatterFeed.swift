@@ -15,6 +15,8 @@ protocol SwitchRecChatterViewDelegate
 }
 
 class ChatterFeed: UIViewController {
+    @IBOutlet weak var chatterScrollView: UIScrollView!
+    
     var switchDelegate:SwitchRecChatterViewDelegate?
     
     override func viewDidLoad() {

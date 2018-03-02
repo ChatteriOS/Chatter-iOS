@@ -44,12 +44,14 @@ PODS:
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
   - Pulsator (0.3.0)
+  - ScrollableStackView (1.0.3)
 
 DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
   - Pulsator
+  - ScrollableStackView
 
 SPEC CHECKSUMS:
   Firebase: ebebf41db7f10e0c7668b6eaaa857fbe599aa478
@@ -63,7 +65,8 @@ SPEC CHECKSUMS:
   leveldb-library: 10fb39c39e243db4af1828441162405bbcec1404
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Pulsator: 0191f14f7ab82d6dbde6fdbde42036f07a4450e3
+  ScrollableStackView: c97d7b8cb4432616a7233601ba92455889f94cd4
 
-PODFILE CHECKSUM: 2ed9caceca0d710d75879c9935a519a52cd71929
+PODFILE CHECKSUM: 704d7f7a7f684e59220039d073a642250457eeeb
 
 COCOAPODS: 1.4.0
