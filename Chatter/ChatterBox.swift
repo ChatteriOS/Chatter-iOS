@@ -17,30 +17,36 @@ class ChatterBox: UIViewController {
         super.viewDidLoad()
         
         let rectangle1 = UIView()
-        rectangle1.backgroundColor = UIColor.green
+        rectangle1.layer.borderWidth = 1
+        rectangle1.layer.borderColor = UIColor.purple.cgColor
         
         let rectangle2 = UIView()
-        rectangle2.backgroundColor = UIColor.red
+        rectangle2.layer.borderWidth = 1
+        rectangle2.layer.borderColor = UIColor.purple.cgColor
         
         let rectangle3 = UIView()
-        rectangle3.backgroundColor = UIColor.blue
+        rectangle3.layer.borderWidth = 1
+        rectangle3.layer.borderColor = UIColor.purple.cgColor
         
         let rectangle4 = UIView()
-        rectangle4.backgroundColor = UIColor.purple
+        rectangle4.layer.borderWidth = 1
+        rectangle4.layer.borderColor = UIColor.purple.cgColor
         
         let rectangle5 = UIView()
-        rectangle5.backgroundColor = UIColor.orange
+        rectangle5.layer.borderWidth = 1
+        rectangle5.layer.borderColor = UIColor.purple.cgColor
         
         let rectangle6 = UIView()
-        rectangle6.backgroundColor = UIColor.black
+        rectangle6.layer.borderWidth = 1
+        rectangle6.layer.borderColor = UIColor.purple.cgColor
         
         // Have an array of views
-        var myViews = [rectangle1, rectangle2, rectangle3, rectangle4, rectangle5, rectangle6]
+        let myViews = [rectangle1, rectangle2, rectangle3, rectangle4, rectangle5, rectangle6]
         
         chatterScrollView.contentSize = chatterBoxView.frame.size
         
-        let imageWidth:CGFloat = 300
-        let imageHeight:CGFloat = 150
+        let imageWidth:CGFloat = 350
+        let imageHeight:CGFloat = 100
         var yPosition:CGFloat = 0
         var scrollViewContentSize:CGFloat=0;
         for view in myViews
@@ -51,7 +57,7 @@ class ChatterBox: UIViewController {
             view.center = self.view.center
             view.frame.origin.y = yPosition
             chatterScrollView.addSubview(view)
-            let spacer:CGFloat = 5
+            let spacer:CGFloat = 10
             yPosition+=imageHeight + spacer
             scrollViewContentSize+=imageHeight + spacer
             chatterScrollView.contentSize = CGSize(width: imageWidth, height: scrollViewContentSize)
@@ -71,7 +77,7 @@ class ChatterBox: UIViewController {
         
         UIView.animate(withDuration: 1.25,
                        delay: 0,
-                       usingSpringWithDamping: CGFloat(0.20),
+                       usingSpringWithDamping: CGFloat(0.40),
                        initialSpringVelocity: CGFloat(6.0),
                        options: UIViewAnimationOptions.allowUserInteraction,
                        animations: {
