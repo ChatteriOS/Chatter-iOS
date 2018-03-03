@@ -16,11 +16,15 @@ class SignUp: UIViewController {
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     
+    var ref: DatabaseReference!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
+        signUpButton.addTarget(self, action: #selector(handleSignup), for: .touchUpInside)
         
-        signUpButton.addTarget(self, action: #selector(handleSignup), for: .touchUpInside   )
+        // Initialize Firebase Reference
+        ref = Database.database().reference()
     }
     
     override func didReceiveMemoryWarning() {
@@ -36,6 +40,9 @@ class SignUp: UIViewController {
         Auth.auth().createUser(withEmail: email, password: password) { user, error in
             if error == nil && user != nil {
                 print("User created! \n\(user)")
+                
+                // Initialize user object in Firebase with basic data
+                self.ref.child("users").child((user?.uid)!).setValue(["username": username])
             }   else {
                 print("Error:\(error!.localizedDescription)")
             }

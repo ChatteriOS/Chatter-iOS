@@ -11,24 +11,17 @@ import AVFoundation
 import Pulsator
 import AudioToolbox
 
-class Landing: UIViewController, SwitchRecChatterViewDelegate {
+class Landing: UIViewController, SwitchRecChatterViewDelegate, SwitchChatterButtonToUtilitiesDelegate {
     @IBOutlet weak var recordView: UIView!
     @IBOutlet weak var chatterFeedView: UIView!
     @IBOutlet weak var chatterButton: UIButton!
+    @IBOutlet weak var recordingUtilities: UIView!
+    @IBOutlet weak var recordingUtilitiesTrashButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        AVAudioSession.sharedInstance().requestRecordPermission () {
-//            [unowned self] allowed in
-//            if allowed {
-//                // Microphone allowed, do what you like!
-//                self.setUpUI()
-//            } else {
-//                // User denied microphone. Tell them off!
-//
-//            }
-//        }
+        self.recordingUtilities.alpha = 0.0
         
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -45,12 +38,32 @@ class Landing: UIViewController, SwitchRecChatterViewDelegate {
         if let destination = segue.destination as? ChatterFeed {
             destination.switchDelegate = self
         }
+        
+        if let destination = segue.destination as? LandingRecord {
+            destination.switchDelegate = self
+        }
     }
     
     @IBAction func hearChatter(sender: UIButton) {
         AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
         
         SwitchRecChatterView(toPage: "chatterView")
+    }
+    
+    @IBAction func animateButton(sender: UIButton) {
+        
+        sender.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        
+        UIView.animate(withDuration: 1.25,
+                       delay: 0,
+                       usingSpringWithDamping: CGFloat(0.40),
+                       initialSpringVelocity: CGFloat(6.0),
+                       options: UIViewAnimationOptions.allowUserInteraction,
+                       animations: {
+                        sender.transform = CGAffineTransform.identity
+        },
+                       completion: { Void in()  }
+        )
     }
     
     
@@ -68,53 +81,18 @@ class Landing: UIViewController, SwitchRecChatterViewDelegate {
         }
     }
     
-//    Audio Record Control --------------------------------------
-    
-//    var recordButton = UIButton()
-//    var playButton = UIButton()
-//    var isRecording = false
-//    var audioRecorder: AVAudioRecorder?
-//    var player : AVAudioPlayer?
-//    
-//    func setUpUI() {
-//        recordButton.translatesAutoresizingMaskIntoConstraints = false
-//        playButton.translatesAutoresizingMaskIntoConstraints = false
-//        view.addSubview(recordButton)
-//        view.addSubview(playButton)
-//        
-//        // Adding constraints to Record button
-//        recordButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        recordButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-//        let recordButtonHeightConstraint = recordButton.heightAnchor.constraint(equalToConstant: 50)
-//        recordButtonHeightConstraint.isActive = true
-//        recordButton.widthAnchor.constraint(equalTo: recordButton.heightAnchor, multiplier: 1.0).isActive = true
-//        recordButton.setImage(#imageLiteral(resourceName: "record"), for: .normal)
-//        recordButton.layer.cornerRadius = recordButtonHeightConstraint.constant/2
-//        recordButton.layer.borderColor = UIColor.white.cgColor
-//        recordButton.layer.borderWidth = 5.0
-//        recordButton.imageEdgeInsets = UIEdgeInsetsMake(-20, -20, -20, -20)
-//        recordButton.addTarget(self, action: #selector(record(sender:)), for: .touchUpInside)
-//        
-//        // Adding constraints to Play button
-//        playButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-//        playButton.widthAnchor.constraint(equalTo: playButton.heightAnchor, multiplier: 1.0).isActive = true
-//        playButton.trailingAnchor.constraint(equalTo: recordButton.leadingAnchor, constant: -16).isActive = true
-//        playButton.centerYAnchor.constraint(equalTo: recordButton.centerYAnchor).isActive = true
-//        playButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
-//        playButton.addTarget(self, action: #selector(play(sender:)), for: .touchUpInside)
-//    }
-//    
-//    @objc func record(sender: UIButton) {
-//        
-//    }
-//    
-//    @objc func play(sender: UIButton) {
-//        
-//    }
-    
-//    UI Configuration --------------------------------------
-    
-    // Configures Circle Record Button
-
+    func SwitchChatterButtonToUtilities(toFunction: String) {
+        if (toFunction == "recording") {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.chatterButton.alpha = 0.0
+                self.recordingUtilities.alpha = 1.0
+            })
+        }   else if (toFunction == "trashing") {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.chatterButton.alpha = 1.0
+                self.recordingUtilities.alpha = 0.0
+            })
+        }
+    }
 }
 

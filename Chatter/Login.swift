@@ -36,7 +36,7 @@ class Login: UIViewController {
         
         Auth.auth().signIn(withEmail: email, password: password, completion: {(user, error) in
             if error == nil && user != nil {
-                print("Logging In")
+                print("Logging In\(user?.uid)")
                 self.performSegue(withIdentifier: "loginToLanding", sender: nil)
             }   else {
                 print("Error:\(error!.localizedDescription)")

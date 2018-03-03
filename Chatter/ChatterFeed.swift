@@ -20,10 +20,10 @@ class ChatterFeed: UIViewController {
     
     var switchDelegate:SwitchRecChatterViewDelegate?
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.chatterFeedView.alpha = 0.0
         
         let rectangle1 = UIView()
         rectangle1.layer.borderWidth = 1

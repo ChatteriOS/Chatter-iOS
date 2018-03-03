@@ -17,12 +17,23 @@ protocol MenuActionDelegate {
     func reopenMenu()
 }
 
-class LandingRecord: UIViewController {
+protocol SwitchChatterButtonToUtilitiesDelegate
+{
+    func SwitchChatterButtonToUtilities(toFunction: String)
+}
+
+class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
     @IBOutlet weak var topNavView: UIView!
     @IBOutlet weak var recButtonCover: UIView!
     @IBOutlet weak var pulseView: UIView!
     @IBOutlet weak var recButton: UIButton!
+    
+    var switchDelegate:SwitchChatterButtonToUtilitiesDelegate?
+    
+    var isRecording = false
+    var audioRecorder: AVAudioRecorder?
+    var player : AVAudioPlayer?
 
     let pulsator = Pulsator()
     let interactor = Interactor()
@@ -46,17 +57,16 @@ class LandingRecord: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @IBAction func trashChatter(sender: UIButton) {
+        // Stop the looping
+        audioPlayerDidFinishPlaying(self.player!, successfully: true)
+        
+        // Trash the recording
+        switchDelegate?.SwitchChatterButtonToUtilities(toFunction: "trashing")
+    }
 
     @IBAction func animateRecButton(sender: UIButton) {
-        
-        if (!pulsator.isPulsating) {
-            pulsator.numPulse = 6
-            pulsator.animationDuration = 2
-            pulsator.radius = 170.0
-            pulsator.start()
-        }   else {
-            pulsator.stop()
-        }
         
         sender.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
         
@@ -70,6 +80,28 @@ class LandingRecord: UIViewController {
         },
                        completion: { Void in()  }
         )
+        
+        if (!pulsator.isPulsating) {
+            pulsator.numPulse = 6
+            pulsator.animationDuration = 2
+            pulsator.radius = 170.0
+            pulsator.start()
+            
+            // Toggle on utilities
+            switchDelegate?.SwitchChatterButtonToUtilities(toFunction: "recording")
+            
+            // Code to start recording
+            startRecording()
+            
+        }   else {
+            pulsator.stop()
+            
+            //Code to stop recording
+            finishRecording()
+            
+            // Code to start playback
+            playSound()
+        }
     }
 
     @IBAction func animateButton(sender: UIButton) {
@@ -115,13 +147,88 @@ class LandingRecord: UIViewController {
 
     //    UI Configuration --------------------------------------
 
-    // Configures Circle Record Button
+    // Configures Circle Blank Behind Record Button
     func configureButton()
     {
         recButtonCover.layer.cornerRadius = 0.5 * recButtonCover.bounds.size.width
         recButtonCover.layer.borderColor = UIColor(red:0, green:0, blue:0, alpha:0).cgColor as CGColor
         recButtonCover.layer.borderWidth = 2.0
         recButtonCover.clipsToBounds = true
+    }
+    
+    //    Audio Recording ---------------------------------------
+    
+    func startRecording() {
+        //1. create the session
+        let session = AVAudioSession.sharedInstance()
+        
+        do {
+            // 2. configure the session for recording and playback
+            try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: .defaultToSpeaker)
+            try session.setActive(true)
+            // 3. set up a high-quality recording session
+            let settings = [
+                AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+                AVSampleRateKey: 44100,
+                AVNumberOfChannelsKey: 2,
+                AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+            ]
+            // 4. create the audio recording, and assign ourselves as the delegate
+            audioRecorder = try AVAudioRecorder(url: getAudioFileUrl(), settings: settings)
+            audioRecorder?.delegate = self
+            audioRecorder?.record()
+        }
+        catch let error {
+            print("Failed to record!!!")
+        }
+    }
+    
+    func getAudioFileUrl() -> URL{
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let docsDirect = paths[0]
+        let audioUrl = docsDirect.appendingPathComponent("currentRecording.m4a")
+        return audioUrl
+    }
+    
+    func finishRecording() {
+        audioRecorder?.stop()
+        isRecording = false
+    }
+    
+    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+        if flag {
+            finishRecording()
+        }else {
+            // Recording interrupted by other reasons like call coming, reached time limit.
+        }
+    }
+    
+    // Audio Playback ------------------------------------------------
+    
+    func playSound(){
+        let url = getAudioFileUrl()
+        do {
+            // AVAudioPlayer setting up with the saved file URL
+            let sound = try AVAudioPlayer(contentsOf: url)
+            self.player = sound
+            
+            // Here conforming to AVAudioPlayerDelegate
+            sound.delegate = self
+            sound.prepareToPlay()
+            sound.numberOfLoops = -1
+            sound.play()
+        } catch {
+            print("error loading file")
+            // couldn't load file :(
+        }
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        if flag {
+            
+        }else {
+            // Playing interrupted by other reasons like call coming, the sound has not finished playing.
+        }
     }
 
 }
