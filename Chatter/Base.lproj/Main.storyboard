@@ -175,42 +175,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bey-IL-j7m">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="521"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="Iur-Jm-rHX" kind="embed" identifier="goToChatterFeed" id="nr3-aK-Izv"/>
+                                </connections>
+                            </containerView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6fh-DD-DJL">
-                                <rect key="frame" x="0.0" y="438" width="375" height="229"/>
+                                <rect key="frame" x="0.0" y="519" width="375" height="148"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="88i-76-S6b">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="128"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dtj-Nl-T77">
-                                                <rect key="frame" x="41" y="49" width="46" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Button"/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RW9-qS-wGm">
-                                                <rect key="frame" x="164" y="49" width="46" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Button"/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7D0-Fy-ZRc">
-                                                <rect key="frame" x="297" y="49" width="46" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Button"/>
-                                            </button>
-                                        </subviews>
-                                    </scrollView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="if9-Uw-SWG">
-                                        <rect key="frame" x="155" y="136" width="64" height="67"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Obj-pV-nxO">
+                                        <rect key="frame" x="159" y="45" width="57" height="57"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="Trash"/>
                                         <connections>
-                                            <action selector="animateButtonWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6om-Vk-vM7"/>
+                                            <action selector="animateButtonWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HmH-93-Diw"/>
+                                            <action selector="trashRecordingWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="k0B-u5-rXK"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kmY-9n-csp">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="521"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="Nqu-23-wci" kind="embed" identifier="goToRecord" id="pE9-7b-dQX"/>
+                                </connections>
+                            </containerView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FC0-h2-JjX">
                                 <rect key="frame" x="0.0" y="518" width="375" height="149"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -223,20 +217,6 @@
                                     <action selector="hearChatterWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KPS-Js-4J0"/>
                                 </connections>
                             </button>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bey-IL-j7m">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="521"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <connections>
-                                    <segue destination="Iur-Jm-rHX" kind="embed" identifier="goToChatterFeed" id="nr3-aK-Izv"/>
-                                </connections>
-                            </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kmY-9n-csp">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="440"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <connections>
-                                    <segue destination="Nqu-23-wci" kind="embed" identifier="goToRecord" id="pE9-7b-dQX"/>
-                                </connections>
-                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
@@ -247,8 +227,7 @@
                         <outlet property="chatterButton" destination="FC0-h2-JjX" id="bRe-vN-Sej"/>
                         <outlet property="chatterFeedView" destination="bey-IL-j7m" id="2iW-uS-s21"/>
                         <outlet property="recordView" destination="kmY-9n-csp" id="Ub2-VA-MWw"/>
-                        <outlet property="recordingUtilities" destination="6fh-DD-DJL" id="qoq-c4-Ynw"/>
-                        <outlet property="recordingUtilitiesTrashButton" destination="if9-Uw-SWG" id="D62-Nn-pXy"/>
+                        <outlet property="recordingUtilities" destination="6fh-DD-DJL" id="X9t-GB-u9v"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -276,7 +255,7 @@
             <objects>
                 <viewController storyboardIdentifier="Profile" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7Of-1v-8UD" customClass="Profile" customModule="Chatter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CNA-C3-Gda">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="440"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="521"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HDK-wT-sgF">
@@ -308,7 +287,7 @@
             <objects>
                 <viewController id="Nqu-23-wci" customClass="LandingRecord" customModule="Chatter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NpF-id-SPE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="440"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="521"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ssI-eQ-NMU">
@@ -396,7 +375,7 @@
             <objects>
                 <viewController id="TN5-vY-749" customClass="ChatterBox" customModule="Chatter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mzi-GN-vM6">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="440"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="521"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0dt-pq-9mr">
@@ -451,6 +430,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mD0-KG-g80">
                                 <rect key="frame" x="0.0" y="68" width="375" height="453"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eeb-8Z-trk">
                                 <rect key="frame" x="8" y="20" width="41" height="40"/>
@@ -484,6 +464,6 @@
         <image name="Trash" width="57" height="57"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="LRn-rX-MYf"/>
+        <segue reference="H6O-gC-yCt"/>
     </inferredMetricsTieBreakers>
 </document>

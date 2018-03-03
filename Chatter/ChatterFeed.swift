@@ -23,8 +23,6 @@ class ChatterFeed: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.chatterFeedView.alpha = 0.0
-        
         let rectangle1 = UIView()
         rectangle1.layer.borderWidth = 1
         rectangle1.layer.borderColor = UIColor.purple.cgColor

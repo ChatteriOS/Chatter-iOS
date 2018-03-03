@@ -22,7 +22,7 @@ protocol SwitchChatterButtonToUtilitiesDelegate
     func SwitchChatterButtonToUtilities(toFunction: String)
 }
 
-class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
+class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate{
     
     @IBOutlet weak var topNavView: UIView!
     @IBOutlet weak var recButtonCover: UIView!
@@ -46,6 +46,9 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
         
         topNavView.addBorder(toSide: .Bottom, withColor: UIColor(red: 0, green: 0, blue: 0, alpha: 0.2).cgColor, andThickness: 1.0)
         
+        // Notification center, listening for recording utilities actions
+        NotificationCenter.default.addObserver(self, selector: #selector(trashRecording(notification:)), name: .trashing, object: nil)
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -56,14 +59,6 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    @IBAction func trashChatter(sender: UIButton) {
-        // Stop the looping
-        audioPlayerDidFinishPlaying(self.player!, successfully: true)
-        
-        // Trash the recording
-        switchDelegate?.SwitchChatterButtonToUtilities(toFunction: "trashing")
     }
 
     @IBAction func animateRecButton(sender: UIButton) {
@@ -230,7 +225,23 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
             // Playing interrupted by other reasons like call coming, the sound has not finished playing.
         }
     }
+    
+    // Recording Utilities ---------------------------------------------------------
+    
+    @objc func trashRecording(notification: NSNotification) {
+        print("NOTIFICATION RECEIVED")
+        
+        // Stop the looping
+        self.player?.stop() 
+        
+        // Trash the recording
+        switchDelegate?.SwitchChatterButtonToUtilities(toFunction: "trashing")
+    }
 
+}
+
+extension Notification.Name {
+    static let trashing = Notification.Name("trashing")
 }
 
 extension LandingRecord: UIViewControllerTransitioningDelegate {

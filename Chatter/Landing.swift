@@ -25,9 +25,6 @@ class Landing: UIViewController, SwitchRecChatterViewDelegate, SwitchChatterButt
         
         // Do any additional setup after loading the view, typically from a nib.
     }
-    
-    override func viewDidLayoutSubviews() {
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -66,6 +63,10 @@ class Landing: UIViewController, SwitchRecChatterViewDelegate, SwitchChatterButt
         )
     }
     
+    @IBAction func trashRecording(sender: UIButton) {
+        NotificationCenter.default.post(name: .trashing, object: nil)
+    }
+    
     
     func SwitchRecChatterView(toPage: String) {
         if (toPage == "recordView") {
@@ -94,5 +95,6 @@ class Landing: UIViewController, SwitchRecChatterViewDelegate, SwitchChatterButt
             })
         }
     }
+    
 }
 
