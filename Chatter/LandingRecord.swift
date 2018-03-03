@@ -28,12 +28,15 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
     @IBOutlet weak var recButtonCover: UIView!
     @IBOutlet weak var pulseView: UIView!
     @IBOutlet weak var recButton: UIButton!
+    @IBOutlet weak var recordingFilters: UIScrollView!
+    @IBOutlet var swipeSaveRecording: UISwipeGestureRecognizer!
     
     var switchDelegate:SwitchChatterButtonToUtilitiesDelegate?
     
     var isRecording = false
     var audioRecorder: AVAudioRecorder?
     var player : AVAudioPlayer?
+    var finishedRecording = false
 
     let pulsator = Pulsator()
     let interactor = Interactor()
@@ -45,6 +48,7 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
         pulsator.backgroundColor = UIColor(red: 0.75, green: 0, blue: 1, alpha: 1).cgColor
         
         topNavView.addBorder(toSide: .Bottom, withColor: UIColor(red: 0, green: 0, blue: 0, alpha: 0.2).cgColor, andThickness: 1.0)
+        self.recordingFilters.alpha = 0.0
         
         // Notification center, listening for recording utilities actions
         NotificationCenter.default.addObserver(self, selector: #selector(trashRecording(notification:)), name: .trashing, object: nil)
@@ -54,6 +58,7 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
 
     override func viewDidLayoutSubviews() {
         configureButton()
+        configureFilterButtons()
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,40 +67,45 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
     }
 
     @IBAction func animateRecButton(sender: UIButton) {
+        if (!finishedRecording) {
+            sender.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
         
-        sender.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+            UIView.animate(withDuration: 1.25,
+                           delay: 0,
+                           usingSpringWithDamping: CGFloat(0.30),
+                           initialSpringVelocity: CGFloat(6.0),
+                           options: UIViewAnimationOptions.allowUserInteraction,
+                           animations: {
+                            sender.transform = CGAffineTransform.identity
+            },
+                           completion: { Void in()  }
+            )
         
-        UIView.animate(withDuration: 1.25,
-                       delay: 0,
-                       usingSpringWithDamping: CGFloat(0.30),
-                       initialSpringVelocity: CGFloat(6.0),
-                       options: UIViewAnimationOptions.allowUserInteraction,
-                       animations: {
-                        sender.transform = CGAffineTransform.identity
-        },
-                       completion: { Void in()  }
-        )
-        
-        if (!pulsator.isPulsating) {
-            pulsator.numPulse = 6
-            pulsator.animationDuration = 2
-            pulsator.radius = 170.0
-            pulsator.start()
-            
-            // Toggle on utilities
-            switchDelegate?.SwitchChatterButtonToUtilities(toFunction: "recording")
-            
-            // Code to start recording
-            startRecording()
-            
-        }   else {
-            pulsator.stop()
-            
-            //Code to stop recording
-            finishRecording()
-            
-            // Code to start playback
-            playSound()
+            if (!pulsator.isPulsating) {
+                pulsator.numPulse = 6
+                pulsator.animationDuration = 2
+                pulsator.radius = 170.0
+                pulsator.start()
+                
+                // Toggle on utilities
+                switchDelegate?.SwitchChatterButtonToUtilities(toFunction: "recording")
+                
+                // Code to start recording
+                startRecording()
+                
+            }   else {
+                pulsator.stop()
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.recordingFilters.alpha = 1.0
+                })
+                
+                //Code to stop recording
+                finishRecording()
+                finishedRecording = true
+                
+                // Code to start playback
+                playSound()
+            }
         }
     }
 
@@ -132,6 +142,37 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
         }
     }
     
+    @IBAction func saveRecording(sender: AnyObject) {
+        print("SAVING")
+        if (finishedRecording) {
+            // Saving animation
+            recButton.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+            UIView.animate(withDuration: 1.5,
+                           delay: 0,
+                           usingSpringWithDamping: CGFloat(0.6),
+                           initialSpringVelocity: CGFloat(50.0),
+                           options: UIViewAnimationOptions.allowUserInteraction,
+                           animations: {
+                            self.recButton.transform = CGAffineTransform.identity
+            },
+                           completion: { Void in()  }
+            )
+        
+            // Return to recording view
+            UIView.animate(withDuration: 0.5, animations: {
+                self.recordingFilters.alpha = 0.0
+            })
+            // Stop the looping
+            self.player?.stop()
+        
+            // Trash the recording
+            switchDelegate?.SwitchChatterButtonToUtilities(toFunction: "finished")
+        
+            // Reset recording
+            finishedRecording = false
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationViewController = segue.destination as? Profile {
             destinationViewController.transitioningDelegate = self
@@ -144,6 +185,14 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
 
     // Configures Circle Blank Behind Record Button
     func configureButton()
+    {
+        recButtonCover.layer.cornerRadius = 0.5 * recButtonCover.bounds.size.width
+        recButtonCover.layer.borderColor = UIColor(red:0, green:0, blue:0, alpha:0).cgColor as CGColor
+        recButtonCover.layer.borderWidth = 2.0
+        recButtonCover.clipsToBounds = true
+    }
+    
+    func configureFilterButtons()
     {
         recButtonCover.layer.cornerRadius = 0.5 * recButtonCover.bounds.size.width
         recButtonCover.layer.borderColor = UIColor(red:0, green:0, blue:0, alpha:0).cgColor as CGColor
@@ -229,13 +278,20 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
     // Recording Utilities ---------------------------------------------------------
     
     @objc func trashRecording(notification: NSNotification) {
-        print("NOTIFICATION RECEIVED")
+        UIView.animate(withDuration: 0.5, animations: {
+            self.recordingFilters.alpha = 0.0
+        })
+        pulsator.stop()
+        isRecording = false
         
         // Stop the looping
-        self.player?.stop() 
+        self.player?.stop()
         
         // Trash the recording
-        switchDelegate?.SwitchChatterButtonToUtilities(toFunction: "trashing")
+        switchDelegate?.SwitchChatterButtonToUtilities(toFunction: "finished")
+        
+        // Reset recording
+        finishedRecording = false
     }
 
 }

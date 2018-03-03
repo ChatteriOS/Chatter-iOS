@@ -88,7 +88,7 @@ class Landing: UIViewController, SwitchRecChatterViewDelegate, SwitchChatterButt
                 self.chatterButton.alpha = 0.0
                 self.recordingUtilities.alpha = 1.0
             })
-        }   else if (toFunction == "trashing") {
+        }   else if (toFunction == "finished") {
             UIView.animate(withDuration: 0.5, animations: {
                 self.chatterButton.alpha = 1.0
                 self.recordingUtilities.alpha = 0.0

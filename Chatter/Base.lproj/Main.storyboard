@@ -339,12 +339,35 @@
                                 <rect key="frame" x="82" y="204" width="211" height="208"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration" identifier="recButton" label="recButton"/>
+                                <gestureRecognizers/>
                                 <fontDescription key="fontDescription" name="LucidaGrande" family="Lucida Grande" pointSize="48"/>
                                 <state key="normal" image="PurpleButton"/>
                                 <connections>
                                     <action selector="animateRecButtonWithSender:" destination="Nqu-23-wci" eventType="touchUpInside" id="HYL-xe-0wW"/>
+                                    <outletCollection property="gestureRecognizers" destination="gNY-22-wLc" appends="YES" id="Aq9-5q-XBt"/>
                                 </connections>
                             </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pFj-NK-jcw">
+                                <rect key="frame" x="0.0" y="420" width="375" height="101"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pEc-HC-7HS">
+                                        <rect key="frame" x="39" y="35" width="46" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d21-0k-Cry">
+                                        <rect key="frame" x="164" y="35" width="46" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xJz-EA-dyK">
+                                        <rect key="frame" x="307" y="35" width="46" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                </subviews>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
@@ -357,6 +380,8 @@
                         <outlet property="pulseView" destination="fy0-rO-EQi" id="VI3-Cg-vla"/>
                         <outlet property="recButton" destination="q14-6C-HdF" id="zfr-vV-EM5"/>
                         <outlet property="recButtonCover" destination="WB9-Sy-rAF" id="Ofj-TH-1bd"/>
+                        <outlet property="recordingFilters" destination="pFj-NK-jcw" id="Bn3-Ls-kqI"/>
+                        <outlet property="swipeSaveRecording" destination="gNY-22-wLc" id="f1r-6B-YQH"/>
                         <outlet property="topNavView" destination="ssI-eQ-NMU" id="qH2-4C-n6n"/>
                     </connections>
                 </viewController>
@@ -367,8 +392,13 @@
                         <action selector="edgePanGesture:" destination="Nqu-23-wci" id="cJx-Af-wwy"/>
                     </connections>
                 </screenEdgePanGestureRecognizer>
+                <swipeGestureRecognizer direction="up" id="gNY-22-wLc">
+                    <connections>
+                        <action selector="saveRecordingWithSender:" destination="Nqu-23-wci" id="F9k-g4-93a"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2393" y="-633"/>
+            <point key="canvasLocation" x="2392.8000000000002" y="-633.73313343328346"/>
         </scene>
         <!--Chatter Box-->
         <scene sceneID="m6T-8o-SLC">
