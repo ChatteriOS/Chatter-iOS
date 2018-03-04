@@ -72,7 +72,7 @@ class ChatterFeed: UIViewController {
             view.frame.origin.y = yPosition
             chatterScrollView.addSubview(view)
 //            chatterScrollView.addSubview(customSlider)
-            let spacer:CGFloat = 5
+            let spacer:CGFloat = 0
             yPosition+=imageHeight + spacer
             scrollViewContentSize+=imageHeight + spacer
             
