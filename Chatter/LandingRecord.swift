@@ -172,13 +172,13 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
 //                  Write to the ChatterFeed string in FB-DB
                     self.ref.child("users").child(userID!).child("chatterFeed").observeSingleEvent(of: .value, with: { (snapshot) in
                         // Retrieve existing ChatterFeed string
-                        let value = snapshot.value as? NSDictionary
-                        let currChatterFeedCount = value?.count
+                        let value = snapshot.value
+                        let currChatterFeedCount = (value as AnyObject).count
                         
                         // Generating chatterFeed # identifier
-                        var countIdentifier = 0
+                        var countIdentifier: Int
                         if ((currChatterFeedCount) != nil) {
-                            countIdentifier = countIdentifier + 1
+                            countIdentifier = currChatterFeedCount!
                         }   else {
                             countIdentifier = 0
                         }
