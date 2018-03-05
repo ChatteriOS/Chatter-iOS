@@ -92,36 +92,37 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
                 startRecording()
                 
                 self.circularProgressRing.setProgress(value: 100, animationDuration: 30.0) {
-                    self.circularProgressRing.setProgress(value: 0, animationDuration: 1.0) {
-                        UIView.animate(withDuration: 0.5, animations: {
-                            self.recordingFilters.alpha = 1.0
-                        })
-                        // Ending Animation
-                        self.recButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-                        
-                        UIView.animate(withDuration: 1.25,
-                                       delay: 0,
-                                       usingSpringWithDamping: CGFloat(0.60),
-                                       initialSpringVelocity: CGFloat(6.0),
-                                       options: UIViewAnimationOptions.allowUserInteraction,
-                                       animations: {
-                                        self.recButton.transform = CGAffineTransform.identity
-                        },
-                                       completion: { Void in()  }
-                        )
-                        
-                        //Code to stop recording
-                        self.finishRecording()
-                        self.finishedRecording = true
-                        
-                        // Code to start playback
-                        self.playSound()
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self.recordingFilters.alpha = 1.0
+                    })
+                    // Ending Animation
+                    self.recButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+                    
+                    UIView.animate(withDuration: 1.25,
+                                   delay: 0,
+                                   usingSpringWithDamping: CGFloat(0.60),
+                                   initialSpringVelocity: CGFloat(6.0),
+                                   options: UIViewAnimationOptions.allowUserInteraction,
+                                   animations: {
+                                    self.recButton.transform = CGAffineTransform.identity
+                    },
+                                   completion: { Void in()  }
+                    )
+                    
+                    //Code to stop recording
+                    self.finishRecording()
+                    self.finishedRecording = true
+                    
+                    // Code to start playback
+                    self.playSound()
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) { // change 1 to desired number of seconds
+                        self.circularProgressRing.setProgress(value: 0, animationDuration: 0.6) {print("CLOSING")}
                     }
                 }
             }   else if (sender.state == UIGestureRecognizerState.ended && !finishedRecording) {
-                
                 // Case if recording ends before time limit
-                self.circularProgressRing.setProgress(value: 0, animationDuration: 1) {
+                self.circularProgressRing.setProgress(value: 0, animationDuration: 0.5) {
                     print("FINISHED RECORDING.")
                     UIView.animate(withDuration: 0.5, animations: {
                         self.recordingFilters.alpha = 1.0
