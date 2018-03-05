@@ -72,12 +72,12 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
             if (sender.state == UIGestureRecognizerState.began) {
                 
                 // Initial Animation
-                recButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+                recButton.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
                 
                 UIView.animate(withDuration: 1.25,
                                delay: 0,
                                usingSpringWithDamping: CGFloat(0.30),
-                               initialSpringVelocity: CGFloat(6.0),
+                               initialSpringVelocity: CGFloat(6.5),
                                options: UIViewAnimationOptions.allowUserInteraction,
                                animations: {
                                 self.recButton.transform = CGAffineTransform.identity
@@ -92,12 +92,23 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
                 startRecording()
                 
                 self.circularProgressRing.setProgress(value: 100, animationDuration: 30.0) {
-                    print("RECORD TIME REACHED.")
-                    self.circularProgressRing.setProgress(value: 0, animationDuration: 0.1) {
-                        print("FINISHED RECORDING.")
+                    self.circularProgressRing.setProgress(value: 0, animationDuration: 1.0) {
                         UIView.animate(withDuration: 0.5, animations: {
                             self.recordingFilters.alpha = 1.0
                         })
+                        // Ending Animation
+                        self.recButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+                        
+                        UIView.animate(withDuration: 1.25,
+                                       delay: 0,
+                                       usingSpringWithDamping: CGFloat(0.60),
+                                       initialSpringVelocity: CGFloat(6.0),
+                                       options: UIViewAnimationOptions.allowUserInteraction,
+                                       animations: {
+                                        self.recButton.transform = CGAffineTransform.identity
+                        },
+                                       completion: { Void in()  }
+                        )
                         
                         //Code to stop recording
                         self.finishRecording()
@@ -110,7 +121,7 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
             }   else if (sender.state == UIGestureRecognizerState.ended && !finishedRecording) {
                 
                 // Case if recording ends before time limit
-                self.circularProgressRing.setProgress(value: 0, animationDuration: 0.5) {
+                self.circularProgressRing.setProgress(value: 0, animationDuration: 1) {
                     print("FINISHED RECORDING.")
                     UIView.animate(withDuration: 0.5, animations: {
                         self.recordingFilters.alpha = 1.0
@@ -123,19 +134,6 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
                     // Code to start playback
                     self.playSound()
                 }
-                
-                recButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-                
-                UIView.animate(withDuration: 1.25,
-                               delay: 0,
-                               usingSpringWithDamping: CGFloat(0.60),
-                               initialSpringVelocity: CGFloat(6.0),
-                               options: UIViewAnimationOptions.allowUserInteraction,
-                               animations: {
-                                self.recButton.transform = CGAffineTransform.identity
-                },
-                               completion: { Void in()  }
-                )
             }
         }
     }
@@ -185,7 +183,7 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
             // Get audio url and generate a unique ID for the audio file
             let audioUrl = getAudioFileUrl()
             let audioID = randomString(length: 10)
-            let fullAudioID = "\(userID) | \(audioID)"
+            let fullAudioID = "\(userID ?? "") | \(audioID)"
             
             // Saving the recording to FB
             let audioRef = storageRef.child("audio/\(fullAudioID)")

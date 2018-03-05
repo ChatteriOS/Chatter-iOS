@@ -246,7 +246,7 @@
         <scene sceneID="iSk-eK-G1I">
             <objects>
                 <viewController storyboardIdentifier="DiscoverFeed" modalTransitionStyle="crossDissolve" useStoryboardIdentifierAsRestorationIdentifier="YES" id="je0-HG-s3Y" customClass="DiscoverFeed" customModule="Chatter" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="fzc-fi-7xH" customClass="Discover">
+                    <view key="view" contentMode="scaleToFill" id="fzc-fi-7xH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.66621039370000001" green="0.46572189339999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -376,7 +376,7 @@
                                         <real key="value" value="8"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="innerRingColor">
-                                        <color key="value" red="0.90938714379999996" green="0.22721942508931131" blue="0.023079556915512115" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="value" red="1" green="0.36268647244803021" blue="0.147757664866627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="showFloatingPoint" value="NO"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="shouldShowValueText" value="NO"/>
