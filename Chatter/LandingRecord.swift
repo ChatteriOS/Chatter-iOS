@@ -71,6 +71,20 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
         if (!finishedRecording) {
             if (sender.state == UIGestureRecognizerState.began) {
                 
+                // Initial Animation
+                recButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+                
+                UIView.animate(withDuration: 1.25,
+                               delay: 0,
+                               usingSpringWithDamping: CGFloat(0.30),
+                               initialSpringVelocity: CGFloat(6.0),
+                               options: UIViewAnimationOptions.allowUserInteraction,
+                               animations: {
+                                self.recButton.transform = CGAffineTransform.identity
+                },
+                               completion: { Void in()  }
+                )
+                
                 // Toggle on utilities
                 switchDelegate?.SwitchChatterButtonToUtilities(toFunction: "recording")
                 
@@ -96,7 +110,7 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
             }   else if (sender.state == UIGestureRecognizerState.ended && !finishedRecording) {
                 
                 // Case if recording ends before time limit
-                self.circularProgressRing.setProgress(value: 0, animationDuration: 0.1) {
+                self.circularProgressRing.setProgress(value: 0, animationDuration: 0.5) {
                     print("FINISHED RECORDING.")
                     UIView.animate(withDuration: 0.5, animations: {
                         self.recordingFilters.alpha = 1.0
@@ -109,6 +123,19 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
                     // Code to start playback
                     self.playSound()
                 }
+                
+                recButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+                
+                UIView.animate(withDuration: 1.25,
+                               delay: 0,
+                               usingSpringWithDamping: CGFloat(0.60),
+                               initialSpringVelocity: CGFloat(6.0),
+                               options: UIViewAnimationOptions.allowUserInteraction,
+                               animations: {
+                                self.recButton.transform = CGAffineTransform.identity
+                },
+                               completion: { Void in()  }
+                )
             }
         }
     }
@@ -147,8 +174,9 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
     }
     
     @IBAction func saveRecording(sender: AnyObject) {
-        print("SAVING")
         if (finishedRecording) {
+            
+            print("SAVING")
             
             // Initialize FB storage ref
             let storageRef = storage.reference()
@@ -169,7 +197,7 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
                     // Metadata contains file metadata such as size, content-type, and download URL.
                     let downloadURL = metadata!.downloadURL()
                     
-//                  Write to the ChatterFeed string in FB-DB
+                    // Write to the ChatterFeed string in FB-DB
                     self.ref.child("users").child(userID!).child("chatterFeed").observeSingleEvent(of: .value, with: { (snapshot) in
                         // Retrieve existing ChatterFeed string
                         let value = snapshot.value

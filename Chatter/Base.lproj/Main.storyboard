@@ -424,7 +424,7 @@
                         <action selector="edgePanGesture:" destination="Nqu-23-wci" id="cJx-Af-wwy"/>
                     </connections>
                 </screenEdgePanGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="3000" minimumPressDuration="0.5" id="bAT-5e-8Me">
+                <pongPressGestureRecognizer allowableMovement="3000" minimumPressDuration="0.20000000000000001" id="bAT-5e-8Me">
                     <connections>
                         <action selector="startRecordWithSender:" destination="Nqu-23-wci" id="S01-2G-pFO"/>
                     </connections>
