@@ -11,6 +11,7 @@ import UIKit
 import AVFoundation
 import AudioToolbox
 import UICircularProgressRing
+import Firebase
 
 protocol MenuActionDelegate {
     func openSegue(_ segueName: String, sender: AnyObject?)
@@ -29,7 +30,10 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
     @IBOutlet weak var recordingFilters: UIScrollView!
     @IBOutlet weak var circularProgressRing: UICircularProgressRingView!
     
-    
+    // Initialize FB storage + DB
+    let storage = Storage.storage()
+    var ref: DatabaseReference!
+ 
     var switchDelegate:SwitchChatterButtonToUtilitiesDelegate?
     
     var isRecording = false
@@ -48,6 +52,9 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
         // Notification center, listening for recording utilities actions
         NotificationCenter.default.addObserver(self, selector: #selector(trashRecording(notification:)), name: .trashing, object: nil)
         
+        
+        // Initialize Firebase DB Reference
+        ref = Database.database().reference()
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -142,6 +149,55 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
     @IBAction func saveRecording(sender: AnyObject) {
         print("SAVING")
         if (finishedRecording) {
+            
+            // Initialize FB storage ref
+            let storageRef = storage.reference()
+            let userID = Auth.auth().currentUser?.uid
+            
+            // Get audio url and generate a unique ID for the audio file
+            let audioUrl = getAudioFileUrl()
+            let audioID = randomString(length: 10)
+            let fullAudioID = "\(userID) | \(audioID)"
+            
+            // Saving the recording to FB
+            let audioRef = storageRef.child("audio/\(fullAudioID)")
+            
+            audioRef.putFile(from: audioUrl, metadata: nil) { metadata, error in
+                if let error = error {
+                    // Uh-oh, an error occurred!
+                } else {
+                    // Metadata contains file metadata such as size, content-type, and download URL.
+                    let downloadURL = metadata!.downloadURL()
+                    
+//                  Write to the ChatterFeed string in FB-DB
+                    self.ref.child("users").child(userID!).child("chatterFeed").observeSingleEvent(of: .value, with: { (snapshot) in
+                        // Retrieve existing ChatterFeed string
+                        let value = snapshot.value as? NSDictionary
+                        let currChatterFeedCount = value?.count
+                        
+                        // Generating chatterFeed # identifier
+                        var countIdentifier = 0
+                        if ((currChatterFeedCount) != nil) {
+                            countIdentifier = countIdentifier + 1
+                        }   else {
+                            countIdentifier = 0
+                        }
+                        
+                        // Construct new ChatterFeed segment
+                        var chatterFeedSegment = Dictionary<String, Any>()
+                        chatterFeedSegment = ["link": downloadURL?.absoluteString ?? "", "userDetails": userID!, "dateCreated": self.getCurrentDate()]
+
+                        let childUpdates = ["\(countIdentifier)": chatterFeedSegment]
+                        self.ref.child("users").child(userID!).child("chatterFeed").updateChildValues(childUpdates)
+                        
+                        print("SAVE SUCCESS")
+                    
+                    }) { (error) in
+                        print(error.localizedDescription)
+                    }
+                }
+            }
+            
             // Saving animation
             recButton.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
             UIView.animate(withDuration: 1.5,
@@ -154,19 +210,20 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
             },
                            completion: { Void in()  }
             )
-        
+            
+            // Stop the looping
+            self.player?.stop()
+            
+            // Trash the recording
+            self.switchDelegate?.SwitchChatterButtonToUtilities(toFunction: "finished")
+            
+            // Reset recording
+            self.finishedRecording = false
+            
             // Return to recording view
             UIView.animate(withDuration: 0.5, animations: {
                 self.recordingFilters.alpha = 0.0
             })
-            // Stop the looping
-            self.player?.stop()
-        
-            // Trash the recording
-            switchDelegate?.SwitchChatterButtonToUtilities(toFunction: "finished")
-        
-            // Reset recording
-            finishedRecording = false
         }
     }
     
@@ -269,6 +326,35 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
         
         // Reset recording
         finishedRecording = false
+    }
+    
+    // OTHER UTILITIES --------------------------------------------------
+    
+    func randomString(length: Int) -> String {
+        
+        let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let len = UInt32(letters.length)
+        
+        var randomString = ""
+        
+        for _ in 0 ..< length {
+            let rand = arc4random_uniform(len)
+            var nextChar = letters.character(at: Int(rand))
+            randomString += NSString(characters: &nextChar, length: 1) as String
+        }
+        
+        return randomString
+    }
+    
+    func getCurrentDate() -> String {
+        let date = Date()
+        let formatter = DateFormatter()
+        
+        formatter.dateFormat = "dd.MM.yyyy"
+        
+        let result = formatter.string(from: date)
+        
+        return result
     }
 
 }
