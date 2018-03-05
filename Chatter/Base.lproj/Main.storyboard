@@ -256,7 +256,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ORO-TI-ClC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1481" y="-1057"/>
+            <point key="canvasLocation" x="1480.8" y="-1057.4212893553224"/>
         </scene>
         <!--Profile-->
         <scene sceneID="hdP-Pg-Kqr">
@@ -333,30 +333,8 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fy0-rO-EQi">
-                                <rect key="frame" x="187" y="309" width="13" height="14"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WB9-Sy-rAF">
-                                <rect key="frame" x="95" y="216" width="184" height="184"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q14-6C-HdF" userLabel="recButton">
-                                <rect key="frame" x="82" y="204" width="211" height="208"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <accessibility key="accessibilityConfiguration" identifier="recButton" label="recButton"/>
-                                <gestureRecognizers/>
-                                <fontDescription key="fontDescription" name="LucidaGrande" family="Lucida Grande" pointSize="48"/>
-                                <state key="normal" image="PurpleButton"/>
-                                <connections>
-                                    <action selector="animateRecButtonWithSender:" destination="Nqu-23-wci" eventType="touchUpInside" id="HYL-xe-0wW"/>
-                                    <outletCollection property="gestureRecognizers" destination="gNY-22-wLc" appends="YES" id="Aq9-5q-XBt"/>
-                                </connections>
-                            </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pFj-NK-jcw">
-                                <rect key="frame" x="0.0" y="420" width="375" height="101"/>
+                                <rect key="frame" x="0.0" y="436" width="375" height="85"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pEc-HC-7HS">
@@ -376,6 +354,49 @@
                                     </button>
                                 </subviews>
                             </scrollView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ucb-ct-SQ3" customClass="UICircularProgressRingView" customModule="UICircularProgressRing">
+                                <rect key="frame" x="47" y="168" width="281" height="293"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="minValue">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="outerRingColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="startAngle">
+                                        <real key="value" value="-90"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="innerRingWidth">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="innerRingColor">
+                                        <color key="value" red="0.90938714379999996" green="0.22721942508931131" blue="0.023079556915512115" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="showFloatingPoint" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="shouldShowValueText" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="fontColor">
+                                        <color key="value" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q14-6C-HdF" userLabel="recButton">
+                                <rect key="frame" x="60" y="187" width="255" height="255"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <accessibility key="accessibilityConfiguration" identifier="recButton" label="recButton"/>
+                                <gestureRecognizers/>
+                                <fontDescription key="fontDescription" name="LucidaGrande" family="Lucida Grande" pointSize="48"/>
+                                <state key="normal" image="PurpleButton"/>
+                                <connections>
+                                    <action selector="saveRecordingWithSender:" destination="Nqu-23-wci" eventType="touchUpInside" id="ZKx-0T-qQh"/>
+                                    <outletCollection property="gestureRecognizers" destination="bAT-5e-8Me" appends="YES" id="hzd-YL-Cph"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
@@ -385,26 +406,29 @@
                         </connections>
                     </view>
                     <connections>
-                        <outlet property="pulseView" destination="fy0-rO-EQi" id="VI3-Cg-vla"/>
-                        <outlet property="recButton" destination="q14-6C-HdF" id="zfr-vV-EM5"/>
-                        <outlet property="recButtonCover" destination="WB9-Sy-rAF" id="Ofj-TH-1bd"/>
+                        <outlet property="circularProgressRing" destination="ucb-ct-SQ3" id="QVL-kg-XmG"/>
+                        <outlet property="recButton" destination="q14-6C-HdF" id="LKP-Ma-Mob"/>
                         <outlet property="recordingFilters" destination="pFj-NK-jcw" id="Bn3-Ls-kqI"/>
-                        <outlet property="swipeSaveRecording" destination="gNY-22-wLc" id="f1r-6B-YQH"/>
                         <outlet property="topNavView" destination="ssI-eQ-NMU" id="qH2-4C-n6n"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mRl-F6-Ksn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="up" id="gNY-22-wLc">
+                    <connections>
+                        <action selector="saveRecordingWithSender:" destination="Nqu-23-wci" id="F9k-g4-93a"/>
+                    </connections>
+                </swipeGestureRecognizer>
                 <screenEdgePanGestureRecognizer minimumNumberOfTouches="1" id="pY2-y6-ZZA">
                     <rectEdge key="edges" left="YES"/>
                     <connections>
                         <action selector="edgePanGesture:" destination="Nqu-23-wci" id="cJx-Af-wwy"/>
                     </connections>
                 </screenEdgePanGestureRecognizer>
-                <swipeGestureRecognizer direction="up" id="gNY-22-wLc">
+                <pongPressGestureRecognizer allowableMovement="3000" minimumPressDuration="0.5" id="bAT-5e-8Me">
                     <connections>
-                        <action selector="saveRecordingWithSender:" destination="Nqu-23-wci" id="F9k-g4-93a"/>
+                        <action selector="startRecordWithSender:" destination="Nqu-23-wci" id="S01-2G-pFO"/>
                     </connections>
-                </swipeGestureRecognizer>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2392.8000000000002" y="-633.73313343328346"/>
         </scene>

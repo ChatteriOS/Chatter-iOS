@@ -8,7 +8,6 @@
 
 import UIKit
 import AVFoundation
-import Pulsator
 import AudioToolbox
 
 class Landing: UIViewController, SwitchRecChatterViewDelegate, SwitchChatterButtonToUtilitiesDelegate {

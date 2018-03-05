@@ -10,7 +10,8 @@
 #endif
 #endif
 
+#import "UICircularProgressRing.h"
 
-FOUNDATION_EXPORT double ScrollableStackViewVersionNumber;
-FOUNDATION_EXPORT const unsigned char ScrollableStackViewVersionString[];
+FOUNDATION_EXPORT double UICircularProgressRingVersionNumber;
+FOUNDATION_EXPORT const unsigned char UICircularProgressRingVersionString[];
 
