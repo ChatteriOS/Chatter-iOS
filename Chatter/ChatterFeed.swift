@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 protocol SwitchRecChatterViewDelegate
 {
@@ -18,71 +19,94 @@ class ChatterFeed: UIViewController {
     @IBOutlet weak var chatterScrollView: UIScrollView!
     @IBOutlet var chatterFeedView: UIView!
     
+    var ref: DatabaseReference!
+    
     var switchDelegate:SwitchRecChatterViewDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let rectangle1 = UIView()
-        rectangle1.layer.borderWidth = 1
-        rectangle1.layer.borderColor = UIColor.purple.cgColor
+        ref = Database.database().reference()
+        let userID = Auth.auth().currentUser?.uid
         
-        let rectangle2 = UIView()
-        rectangle2.layer.borderWidth = 1
-        rectangle2.layer.borderColor = UIColor.purple.cgColor
+        var chatterSegmentArray: [(link: String, userDetails: String)] = []
+        
+        // Upon initialization, this will fire for EACH child in chatterFeed
+        self.ref.child("users").child(userID!).child("chatterFeed").observe(.childAdded, with: { (snapshot) -> Void in
+            print("Chatter Segment: \(snapshot)")
+            // ************* Remember to add conditional to filter/delete based on date **************
+            
+            let value = snapshot.value as? NSDictionary
+            
+            let link = value?["link"] as? String ?? ""
+            let userDetails = value?["userDetails"] as? String ?? ""
+            
+            // Initialize the audioPlayer view instance and append to overall view here ********************
+
+            chatterSegmentArray.append((link: link, userDetails: userDetails))
+        })
     
-        let rectangle3 = UIView()
-        rectangle3.layer.borderWidth = 1
-        rectangle3.layer.borderColor = UIColor.purple.cgColor
-        
-        let rectangle4 = UIView()
-        rectangle4.layer.borderWidth = 1
-        rectangle4.layer.borderColor = UIColor.purple.cgColor
-        
-        let rectangle5 = UIView()
-        rectangle5.layer.borderWidth = 1
-        rectangle5.layer.borderColor = UIColor.purple.cgColor
-        
-        let rectangle6 = UIView()
-        rectangle6.layer.borderWidth = 1
-        rectangle6.layer.borderColor = UIColor.purple.cgColor
-        
+//        let rectangle1 = UIView()
+//        rectangle1.layer.borderWidth = 1
+//        rectangle1.layer.borderColor = UIColor.purple.cgColor
+//
+//        let rectangle2 = UIView()
+//        rectangle2.layer.borderWidth = 1
+//        rectangle2.layer.borderColor = UIColor.purple.cgColor
+//
+//        let rectangle3 = UIView()
+//        rectangle3.layer.borderWidth = 1
+//        rectangle3.layer.borderColor = UIColor.purple.cgColor
+//
+//        let rectangle4 = UIView()
+//        rectangle4.layer.borderWidth = 1
+//        rectangle4.layer.borderColor = UIColor.purple.cgColor
+//
+//        let rectangle5 = UIView()
+//        rectangle5.layer.borderWidth = 1
+//        rectangle5.layer.borderColor = UIColor.purple.cgColor
+//
+//        let rectangle6 = UIView()
+//        rectangle6.layer.borderWidth = 1
+//        rectangle6.layer.borderColor = UIColor.purple.cgColor
+
         // Have an array of views
-        let myViews = [rectangle1, rectangle2, rectangle3, rectangle4, rectangle5, rectangle6]
-        
+//        let myViews = [rectangle1, rectangle2, rectangle3, rectangle4, rectangle5, rectangle6]
+
         chatterScrollView.contentSize = chatterFeedView.frame.size
+
+//        let imageWidth:CGFloat = 300
+//        var imageHeight:CGFloat = 50
+//        var yPosition:CGFloat = 0
+//        var scrollViewContentSize:CGFloat=0;
+//        for view in chatterFeedSegmentViews
+//
+//        {
+//            // Test: Inputting Invisible Slider
+////            let customSlider = CustomSlider()
+////            customSlider.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI_2))
+////            customSlider.center = self.view.center
+////            customSlider.frame.origin.y = yPosition
+//
+//            imageHeight = imageHeight + CGFloat(arc4random_uniform(250))
+//            view.contentMode = UIViewContentMode.scaleAspectFit
+//            view.frame.size.width = imageWidth
+//            view.frame.size.height = imageHeight
+//            view.center = self.view.center
+//            view.frame.origin.y = yPosition
+//            chatterScrollView.addSubview(view)
+////            chatterScrollView.addSubview(customSlider)
+//            let spacer:CGFloat = 0
+//            yPosition+=imageHeight + spacer
+//            scrollViewContentSize+=imageHeight + spacer
+//
+//            // Calculates running total of how long the scrollView needs to be with the variables
+//            chatterScrollView.contentSize = CGSize(width: imageWidth, height: scrollViewContentSize)
+//
+//            imageHeight = 100
+//        }
         
-        let imageWidth:CGFloat = 300
-        var imageHeight:CGFloat = 50
-        var yPosition:CGFloat = 0
-        var scrollViewContentSize:CGFloat=0;
-        for view in myViews
-        {
-            // Test: Inputting Invisible Slider
-//            let customSlider = CustomSlider()
-//            customSlider.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI_2))
-//            customSlider.center = self.view.center
-//            customSlider.frame.origin.y = yPosition
-            
-            imageHeight = imageHeight + CGFloat(arc4random_uniform(250))
-            view.contentMode = UIViewContentMode.scaleAspectFit
-            view.frame.size.width = imageWidth
-            view.frame.size.height = imageHeight
-            view.center = self.view.center
-            view.frame.origin.y = yPosition
-            chatterScrollView.addSubview(view)
-//            chatterScrollView.addSubview(customSlider)
-            let spacer:CGFloat = 0
-            yPosition+=imageHeight + spacer
-            scrollViewContentSize+=imageHeight + spacer
-            
-            // Calculates running total of how long the scrollView needs to be with the variables
-            chatterScrollView.contentSize = CGSize(width: imageWidth, height: scrollViewContentSize)
-            
-            imageHeight = 100
-        }
-        
-        // Do any additional setup after loading the view, typically from a nib.
+//         Do any additional setup after loading the view, typically from a nib.
     }
     
     override func didReceiveMemoryWarning() {
