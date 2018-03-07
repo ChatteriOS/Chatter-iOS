@@ -193,10 +193,10 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
             
             audioRef.putFile(from: audioUrl, metadata: nil) { metadata, error in
                 if let error = error {
-                    // Uh-oh, an error occurred!
+                    print(error)
                 } else {
                     // Metadata contains file metadata such as size, content-type, and download URL.
-                    let downloadURL = metadata!.downloadURL()
+//                    let downloadURL = metadata!.downloadURL()
                     
                     // Write to the ChatterFeed string in FB-DB
                     self.ref.child("users").child(userID!).child("chatterFeed").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -214,7 +214,7 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
                         
                         // Construct new ChatterFeed segment
                         var chatterFeedSegment = Dictionary<String, Any>()
-                        chatterFeedSegment = ["link": downloadURL?.absoluteString ?? "", "userDetails": userID!, "dateCreated": self.getCurrentDate()]
+                        chatterFeedSegment = ["id": fullAudioID, "userDetails": userID!, "dateCreated": self.getCurrentDate()]
 
                         let childUpdates = ["\(countIdentifier)": chatterFeedSegment]
                         self.ref.child("users").child(userID!).child("chatterFeed").updateChildValues(childUpdates)

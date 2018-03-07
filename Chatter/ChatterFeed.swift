@@ -20,6 +20,7 @@ class ChatterFeed: UIViewController {
     @IBOutlet var chatterFeedView: UIView!
     
     var ref: DatabaseReference!
+    let storage = Storage.storage()
     
     var switchDelegate:SwitchRecChatterViewDelegate?
     
@@ -27,24 +28,72 @@ class ChatterFeed: UIViewController {
         super.viewDidLoad()
         
         ref = Database.database().reference()
+        let storageRef = storage.reference()
         let userID = Auth.auth().currentUser?.uid
         
-        var chatterSegmentArray: [(link: String, userDetails: String)] = []
+        var chatterSegmentArray: [URL] = []
         
-        // Upon initialization, this will fire for EACH child in chatterFeed
+        // Setting up UI Constructors --------------------------------------------------------------------------
+        chatterScrollView.contentSize = chatterFeedView.frame.size
+        
+        let imageWidth:CGFloat = 300
+        var imageHeight:CGFloat = 50
+        var yPosition:CGFloat = 0
+        var scrollViewContentSize:CGFloat=0;
+
+        
+        // Upon initialization, this will fire for EACH child in chatterFeed, and observe for each NEW -------------------------------------
         self.ref.child("users").child(userID!).child("chatterFeed").observe(.childAdded, with: { (snapshot) -> Void in
-            print("Chatter Segment: \(snapshot)")
+            
             // ************* Remember to add conditional to filter/delete based on date **************
             
             let value = snapshot.value as? NSDictionary
             
-            let link = value?["link"] as? String ?? ""
+            let id = value?["id"] as? String ?? ""
             let userDetails = value?["userDetails"] as? String ?? ""
             
-            // Initialize the audioPlayer view instance and append to overall view here ********************
+            print(id)
+            let audioRef = storageRef.child("audio/\(id)")
+            let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            let localURL = documentsURL.appendingPathComponent("\(id.suffix(10)).m4a")
+            
+            audioRef.write(toFile: localURL) { url, error in
+                if let error = error {
+                    print("****** \(error)")
+                } else {
+                    // Local file URL for audio file at 'id' is returned
+                    
+                    // Generate the audioPlayer views
+                    let newView = UIView()
+                    newView.layer.borderWidth = 1
+                    newView.layer.borderColor = UIColor.purple.cgColor
 
-            chatterSegmentArray.append((link: link, userDetails: userDetails))
+                    imageHeight = imageHeight + CGFloat(arc4random_uniform(250))
+                    newView.contentMode = UIViewContentMode.scaleAspectFit
+                    newView.frame.size.width = imageWidth
+                    newView.frame.size.height = imageHeight
+                    newView.center = self.view.center
+                    newView.frame.origin.y = yPosition
+                    self.chatterScrollView.addSubview(newView)
+                    let spacer:CGFloat = 0
+                    yPosition+=imageHeight + spacer
+                    scrollViewContentSize+=imageHeight + spacer
+                    
+                    // Calculates running total of how long the scrollView needs to be with the variables
+                    self.chatterScrollView.contentSize = CGSize(width: imageWidth, height: scrollViewContentSize)
+                    
+                    imageHeight = 100
+                    
+                    // Add to array for 
+                    chatterSegmentArray.append(url!)
+                }
+            }
         })
+        
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) { // change 1 to desired number of seconds
+            print("INITIAL CHATTER FEED ARRAY: \(chatterSegmentArray)")
+        }
     
 //        let rectangle1 = UIView()
 //        rectangle1.layer.borderWidth = 1
@@ -72,8 +121,6 @@ class ChatterFeed: UIViewController {
 
         // Have an array of views
 //        let myViews = [rectangle1, rectangle2, rectangle3, rectangle4, rectangle5, rectangle6]
-
-        chatterScrollView.contentSize = chatterFeedView.frame.size
 
 //        let imageWidth:CGFloat = 300
 //        var imageHeight:CGFloat = 50
