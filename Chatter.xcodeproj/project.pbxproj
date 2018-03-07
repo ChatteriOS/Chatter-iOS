@@ -162,11 +162,11 @@
 				1AC61FBC204696CF0016AB83 /* LandingRecord.swift */,
 				1AFE565F2047E9B400C9E8A2 /* DismissMenuAnimator.swift */,
 				1AFE56532047CB2400C9E8A2 /* ChatterFeed.swift */,
+				1A271485204939650058B33D /* ChatterFeedSegment.swift */,
 				1AFE56592047E4F100C9E8A2 /* Interactor.swift */,
 				1AFE565B2047E55700C9E8A2 /* MenuHelper.swift */,
 				1AFE565D2047E5A900C9E8A2 /* PresentMenuAnimator.swift */,
 				1AFE56612047ED3700C9E8A2 /* ChatterBox.swift */,
-				1A271485204939650058B33D /* ChatterFeedSegment.swift */,
 				1A27148720493A4C0058B33D /* CustomSlider.swift */,
 			);
 			path = Chatter;

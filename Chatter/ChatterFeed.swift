@@ -37,7 +37,7 @@ class ChatterFeed: UIViewController {
         chatterScrollView.contentSize = chatterFeedView.frame.size
         
         let imageWidth:CGFloat = 300
-        var imageHeight:CGFloat = 50
+        var imageHeight:CGFloat = 300
         var yPosition:CGFloat = 0
         var scrollViewContentSize:CGFloat=0;
 
@@ -64,11 +64,16 @@ class ChatterFeed: UIViewController {
                     // Local file URL for audio file at 'id' is returned
                     
                     // Generate the audioPlayer views
-                    let newView = UIView()
+                    let newView = ChatterFeedSegmentView()
                     newView.layer.borderWidth = 1
                     newView.layer.borderColor = UIColor.purple.cgColor
+                    
+//                    // Add play button
+//                    let playButton = UIButton(frame: CGRect(x: 10, y: 10, width: 100, height: 100))
+//                    playButton.addTarget(self, action: #selector(newView.startPlay), for: .touchUpInside)
+//                    playButton.backgroundColor = UIColor.gray
+//                    newView.addSubview(playButton)
 
-                    imageHeight = imageHeight + CGFloat(arc4random_uniform(250))
                     newView.contentMode = UIViewContentMode.scaleAspectFit
                     newView.frame.size.width = imageWidth
                     newView.frame.size.height = imageHeight
@@ -79,10 +84,13 @@ class ChatterFeed: UIViewController {
                     yPosition+=imageHeight + spacer
                     scrollViewContentSize+=imageHeight + spacer
                     
+                    // Add the URL for playback
+                    newView.recordingURL = url
+                    
                     // Calculates running total of how long the scrollView needs to be with the variables
                     self.chatterScrollView.contentSize = CGSize(width: imageWidth, height: scrollViewContentSize)
                     
-                    imageHeight = 100
+                    imageHeight = 300
                     
                     // Add to array for 
                     chatterSegmentArray.append(url!)
