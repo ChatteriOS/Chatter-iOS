@@ -32,6 +32,7 @@ class ChatterFeed: UIViewController {
         let userID = Auth.auth().currentUser?.uid
         
         var chatterSegmentArray: [URL] = []
+        let constructionGroup = DispatchGroup()
         
         // Setting up UI Constructors --------------------------------------------------------------------------
         chatterScrollView.contentSize = chatterFeedView.frame.size
@@ -41,10 +42,10 @@ class ChatterFeed: UIViewController {
         var yPosition:CGFloat = 0
         var scrollViewContentSize:CGFloat=0;
 
-        
+        // CHANGE THIS TO OBSERVE ONCE ***********************************************************************
         // Upon initialization, this will fire for EACH child in chatterFeed, and observe for each NEW -------------------------------------
         self.ref.child("users").child(userID!).child("chatterFeed").observe(.childAdded, with: { (snapshot) -> Void in
-            
+            constructionGroup.enter()
             // ************* Remember to add conditional to filter/delete based on date **************
             
             let value = snapshot.value as? NSDictionary
@@ -52,121 +53,50 @@ class ChatterFeed: UIViewController {
             let id = value?["id"] as? String ?? ""
             let userDetails = value?["userDetails"] as? String ?? ""
             
-            print(id)
-            let audioRef = storageRef.child("audio/\(id)")
             let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
             let localURL = documentsURL.appendingPathComponent("\(id.suffix(10)).m4a")
             
-            audioRef.write(toFile: localURL) { url, error in
-                if let error = error {
-                    print("****** \(error)")
-                } else {
-                    // Local file URL for audio file at 'id' is returned
-                    
-                    // Generate the audioPlayer views
-                    let newView = ChatterFeedSegmentView()
-                    newView.layer.borderWidth = 1
-                    newView.layer.borderColor = UIColor.purple.cgColor
-                    
-//                    // Add play button
-//                    let playButton = UIButton(frame: CGRect(x: 10, y: 10, width: 100, height: 100))
-//                    playButton.addTarget(self, action: #selector(newView.startPlay), for: .touchUpInside)
-//                    playButton.backgroundColor = UIColor.gray
-//                    newView.addSubview(playButton)
-
-                    newView.contentMode = UIViewContentMode.scaleAspectFit
-                    newView.frame.size.width = imageWidth
-                    newView.frame.size.height = imageHeight
-                    newView.center = self.view.center
-                    newView.frame.origin.y = yPosition
-                    self.chatterScrollView.addSubview(newView)
-                    let spacer:CGFloat = 0
-                    yPosition+=imageHeight + spacer
-                    scrollViewContentSize+=imageHeight + spacer
-                    
-                    // Add the URL for playback
-                    newView.recordingURL = url
-                    
-                    // Calculates running total of how long the scrollView needs to be with the variables
-                    self.chatterScrollView.contentSize = CGSize(width: imageWidth, height: scrollViewContentSize)
-                    
-                    imageHeight = 300
-                    
-                    // Add to array for 
-                    chatterSegmentArray.append(url!)
-                }
-            }
+            let newView = ChatterFeedSegmentView()
+            newView.layer.borderWidth = 1
+            newView.layer.borderColor = UIColor.purple.cgColor
+            newView.contentMode = UIViewContentMode.scaleAspectFit
+            newView.frame.size.width = imageWidth
+            newView.frame.size.height = imageHeight
+            newView.center = self.view.center
+            newView.frame.origin.y = yPosition
+            
+            // Generate audio file on UIView instance
+            newView.generateAudioFile(audioURL: localURL, id: id)
+            
+            self.chatterScrollView.addSubview(newView)
+            let spacer:CGFloat = 0
+            yPosition+=imageHeight + spacer
+            scrollViewContentSize+=imageHeight + spacer
+            
+            // Calculates running total of how long the scrollView needs to be with the variables
+            self.chatterScrollView.contentSize = CGSize(width: imageWidth, height: scrollViewContentSize)
+            
+            imageHeight = 300
+            
+            // Add to array for
+            constructionGroup.leave()
         })
         
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 10) { // change 1 to desired number of seconds
             print("INITIAL CHATTER FEED ARRAY: \(chatterSegmentArray)")
         }
-    
-//        let rectangle1 = UIView()
-//        rectangle1.layer.borderWidth = 1
-//        rectangle1.layer.borderColor = UIColor.purple.cgColor
-//
-//        let rectangle2 = UIView()
-//        rectangle2.layer.borderWidth = 1
-//        rectangle2.layer.borderColor = UIColor.purple.cgColor
-//
-//        let rectangle3 = UIView()
-//        rectangle3.layer.borderWidth = 1
-//        rectangle3.layer.borderColor = UIColor.purple.cgColor
-//
-//        let rectangle4 = UIView()
-//        rectangle4.layer.borderWidth = 1
-//        rectangle4.layer.borderColor = UIColor.purple.cgColor
-//
-//        let rectangle5 = UIView()
-//        rectangle5.layer.borderWidth = 1
-//        rectangle5.layer.borderColor = UIColor.purple.cgColor
-//
-//        let rectangle6 = UIView()
-//        rectangle6.layer.borderWidth = 1
-//        rectangle6.layer.borderColor = UIColor.purple.cgColor
-
-        // Have an array of views
-//        let myViews = [rectangle1, rectangle2, rectangle3, rectangle4, rectangle5, rectangle6]
-
-//        let imageWidth:CGFloat = 300
-//        var imageHeight:CGFloat = 50
-//        var yPosition:CGFloat = 0
-//        var scrollViewContentSize:CGFloat=0;
-//        for view in chatterFeedSegmentViews
-//
-//        {
-//            // Test: Inputting Invisible Slider
-////            let customSlider = CustomSlider()
-////            customSlider.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI_2))
-////            customSlider.center = self.view.center
-////            customSlider.frame.origin.y = yPosition
-//
-//            imageHeight = imageHeight + CGFloat(arc4random_uniform(250))
-//            view.contentMode = UIViewContentMode.scaleAspectFit
-//            view.frame.size.width = imageWidth
-//            view.frame.size.height = imageHeight
-//            view.center = self.view.center
-//            view.frame.origin.y = yPosition
-//            chatterScrollView.addSubview(view)
-////            chatterScrollView.addSubview(customSlider)
-//            let spacer:CGFloat = 0
-//            yPosition+=imageHeight + spacer
-//            scrollViewContentSize+=imageHeight + spacer
-//
-//            // Calculates running total of how long the scrollView needs to be with the variables
-//            chatterScrollView.contentSize = CGSize(width: imageWidth, height: scrollViewContentSize)
-//
-//            imageHeight = 100
-//        }
-        
-//         Do any additional setup after loading the view, typically from a nib.
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    deinit {
+        print("DEINITIALIZING")
+        let userID = Auth.auth().currentUser?.uid
+        self.ref.child("users").child(userID!).child("chatterFeed").removeAllObservers()
     }
     
     @IBAction func animateButton(sender: UIButton) {

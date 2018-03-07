@@ -10,6 +10,7 @@ import UIKit
 import Foundation
 import AVFoundation
 import AudioToolbox
+import Firebase
 
 class ChatterFeedSegmentView: UIView {
     var shouldSetupConstraints = true
@@ -58,5 +59,19 @@ class ChatterFeedSegmentView: UIView {
             print("AVAudioPlayer init failed")
         }
         
+    }
+    
+    func generateAudioFile(audioURL: URL, id: String) {
+        let storage = Storage.storage()
+        let storageRef = storage.reference()
+        
+        let audioRef = storageRef.child("audio/\(id)")
+        audioRef.write(toFile: audioURL) { url, error in
+            if let error = error {
+                print("****** \(error)")
+            } else {
+                self.recordingURL = url
+            }
+        }
     }
 }
