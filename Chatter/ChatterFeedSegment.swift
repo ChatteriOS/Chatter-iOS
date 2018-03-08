@@ -21,11 +21,6 @@ class ChatterFeedSegmentView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        // Add play button
-        let playButton = UIButton(frame: CGRect(x: 10, y: 10, width: 100, height: 100))
-        playButton.addTarget(self, action: #selector(startPlay), for: .touchUpInside)
-        playButton.backgroundColor = UIColor.gray
-        self.addSubview(playButton)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -73,5 +68,31 @@ class ChatterFeedSegmentView: UIView {
                 self.recordingURL = url
             }
         }
+    }
+    
+    func generateWaveForm(audioURL: URL) {
+        let file = try! AVAudioFile(forReading: audioURL)//Read File into AVAudioFile
+        let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: file.fileFormat.sampleRate, channels: file.fileFormat.channelCount, interleaved: false)//Format of the file
+        
+        let buf = AVAudioPCMBuffer(pcmFormat: format!, frameCapacity: UInt32(file.length))//Buffer
+        try! file.read(into: buf!)//Read Floats
+        
+        let waveForm = DrawWaveform()
+        waveForm.frame.size.width = 300
+        waveForm.frame.size.height = 300
+        waveForm.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
+        waveForm.backgroundColor = UIColor.white
+        
+        //Store the array of floats in the struct
+        waveForm.arrayFloatValues = Array(UnsafeBufferPointer(start: buf?.floatChannelData?[0], count:Int(buf!.frameLength)))
+        
+        self.addSubview(waveForm)
+        
+        // Then add button to be on outer subview layer
+        // Add play button
+        let playButton = UIButton(frame: CGRect(x: 10, y: 10, width: 300, height: 400))
+        playButton.addTarget(self, action: #selector(startPlay), for: .touchUpInside)
+        playButton.backgroundColor = UIColor(white: 1, alpha: 0.0)
+        self.addSubview(playButton)
     }
 }

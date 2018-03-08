@@ -42,7 +42,6 @@ class ChatterFeed: UIViewController {
         var yPosition:CGFloat = 0
         var scrollViewContentSize:CGFloat=0;
 
-        // CHANGE THIS TO OBSERVE ONCE ***********************************************************************
         // Upon initialization, this will fire for EACH child in chatterFeed, and observe for each NEW -------------------------------------
         self.ref.child("users").child(userID!).child("chatterFeed").observe(.childAdded, with: { (snapshot) -> Void in
             constructionGroup.enter()
@@ -57,8 +56,8 @@ class ChatterFeed: UIViewController {
             let localURL = documentsURL.appendingPathComponent("\(id.suffix(10)).m4a")
             
             let newView = ChatterFeedSegmentView()
-            newView.layer.borderWidth = 1
-            newView.layer.borderColor = UIColor.purple.cgColor
+//            newView.layer.borderWidth = 1
+//            newView.layer.borderColor = UIColor.purple.cgColor
             newView.contentMode = UIViewContentMode.scaleAspectFit
             newView.frame.size.width = imageWidth
             newView.frame.size.height = imageHeight
@@ -67,6 +66,10 @@ class ChatterFeed: UIViewController {
             
             // Generate audio file on UIView instance
             newView.generateAudioFile(audioURL: localURL, id: id)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { // change 1 to desired number of seconds
+                newView.generateWaveForm(audioURL: localURL)
+            }
             
             self.chatterScrollView.addSubview(newView)
             let spacer:CGFloat = 0
@@ -78,14 +81,8 @@ class ChatterFeed: UIViewController {
             
             imageHeight = 300
             
-            // Add to array for
             constructionGroup.leave()
         })
-        
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) { // change 1 to desired number of seconds
-            print("INITIAL CHATTER FEED ARRAY: \(chatterSegmentArray)")
-        }
     }
     
     override func didReceiveMemoryWarning() {
