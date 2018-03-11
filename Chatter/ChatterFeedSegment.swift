@@ -12,7 +12,7 @@ import AVFoundation
 import AudioToolbox
 import Firebase
 
-class ChatterFeedSegmentView: UIView {
+class ChatterFeedSegmentView: UIView, AVAudioPlayerDelegate {
     var shouldSetupConstraints = true
     var recordingURL: URL!
     var playButton: UIButton!
@@ -35,19 +35,13 @@ class ChatterFeedSegmentView: UIView {
         super.updateConstraints()
     }
     
-    @objc func startPlay() {
-        self.playAudio()
-        
-        // When finished playing, it should notify the main ChatterFeed VC
-    }
-    
-    func playAudio() {
+    @objc func playAudio() {
         print("playing \(self.recordingURL)")
         
         do {
             player = try AVAudioPlayer(contentsOf: self.recordingURL)
             player?.prepareToPlay()
-//            player?.volume = 10.0
+            //            player?.volume = 10.0
             player?.play()
         } catch let error as NSError {
             //self.player = nil
@@ -56,6 +50,13 @@ class ChatterFeedSegmentView: UIView {
             print("AVAudioPlayer init failed")
         }
         
+        // When finished playing, it should notify the main ChatterFeed VC
+        player?.delegate = self as? AVAudioPlayerDelegate
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        print("FINISHED PLAYING")
+        NotificationCenter.default.post(name: .chatterFinishedAndQueue, object: nil)
     }
     
     func generateAudioFile(audioURL: URL, id: String) {
@@ -93,7 +94,7 @@ class ChatterFeedSegmentView: UIView {
         // Then add button to be on outer subview layer
         // Add play button
         let playButton = UIButton(frame: CGRect(x: 10, y: 10, width: 300, height: 400))
-        playButton.addTarget(self, action: #selector(startPlay), for: .touchUpInside)
+        playButton.addTarget(self, action: #selector(playAudio), for: .touchUpInside)
         playButton.backgroundColor = UIColor(white: 1, alpha: 0.0)
         self.addSubview(playButton)
     }

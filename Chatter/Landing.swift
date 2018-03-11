@@ -46,7 +46,7 @@ class Landing: UIViewController, SwitchRecChatterViewDelegate, SwitchChatterButt
         SwitchRecChatterView(toPage: "chatterView")
         
         // Notify ChatterFeed to start Chatter queue
-        NotificationCenter.default.post(name: .queueNextChatter, object: nil, userInfo: ["idx": 0])
+        NotificationCenter.default.post(name: .queueNextChatter, object: nil)
     }
     
     @IBAction func animateButton(sender: UIButton) {
@@ -98,5 +98,11 @@ class Landing: UIViewController, SwitchRecChatterViewDelegate, SwitchChatterButt
         }
     }
     
+}
+
+extension Notification.Name {
+    static let trashing = Notification.Name("trashing")
+    static let queueNextChatter = Notification.Name("queueNextChatter")
+    static let chatterFinishedAndQueue = Notification.Name("chatterFinishedAndQueue")
 }
 

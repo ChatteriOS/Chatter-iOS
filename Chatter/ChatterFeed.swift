@@ -25,6 +25,8 @@ class ChatterFeed: UIViewController {
     let storage = Storage.storage()
     
     var chatterFeedSegmentArray: [ChatterFeedSegmentView] = []
+    // Current queue position of Feed
+    var currentIdx: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +35,7 @@ class ChatterFeed: UIViewController {
         
         // Listens for Hear Chatter queue from Landing
         NotificationCenter.default.addObserver(self, selector: #selector(queueNextChatter(notification:)), name: .queueNextChatter, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(chatterFinishedAndQueue(notification:)), name: .chatterFinishedAndQueue, object: nil)
         
         ref = Database.database().reference()
         let storageRef = storage.reference()
@@ -93,18 +96,36 @@ class ChatterFeed: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @objc func queueFromStart(notification: NSNotification) {
-        
-    }
-    
     @objc func queueNextChatter(notification: NSNotification) {
         // Takes in an identifier, related to its position in overall array
-        print("AHHHHHHHHHHHHHHH")
         print(self.chatterFeedSegmentArray)
         
-        let idx = notification.userInfo!["idx"] as? Int
+        // Stop audio from previous Chatter
+        if (self.currentIdx != 0) {
+            self.chatterFeedSegmentArray[self.currentIdx - 1].player?.stop()
+        }   else {
+            self.chatterFeedSegmentArray[self.chatterFeedSegmentArray.count - 1].player?.stop()
+        }
         
-        self.chatterFeedSegmentArray[idx!].playAudio()
+        self.chatterFeedSegmentArray[self.currentIdx].playAudio()
+        
+        // Auto-Queuing from Hear Chatter button
+        if (self.currentIdx + 1 < self.chatterFeedSegmentArray.count) {
+            // Queue next Chatter
+            self.currentIdx += 1
+        }   else {
+            // Reset Feed
+            self.currentIdx = 0
+        }
+    }
+    
+    @objc func chatterFinishedAndQueue(notification: NSNotification) {
+        self.queueNextChatter(notification: notification)
+    }
+    
+    @objc func chatterChangedAndQueue(notification: NSNotification) {
+        // Stop current
+        self.queueNextChatter(notification: notification)
     }
     
     deinit {
@@ -127,7 +148,7 @@ class ChatterFeed: UIViewController {
         },
                        completion: { Void in()  }
         )
-        
+    
         switchDelegate?.SwitchRecChatterView(toPage: "recordView")
     }
 }

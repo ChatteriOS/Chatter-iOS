@@ -387,11 +387,6 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
 
 }
 
-extension Notification.Name {
-    static let trashing = Notification.Name("trashing")
-    static let queueNextChatter = Notification.Name("queueNextChatter")
-}
-
 extension LandingRecord: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return PresentMenuAnimator()
