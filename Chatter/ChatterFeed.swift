@@ -126,23 +126,19 @@ class ChatterFeed: UIViewController {
     
     @objc func chatterChangedAndQueue(notification: NSNotification) {
         // Find out which Idx has been tapped
-        print("CHANGE RECEIVED: \(notification.userInfo!["player"])")
-        
         let tappedPlayer = notification.userInfo!["player"] as! ChatterFeedSegmentView
         
         for (index, player) in self.chatterFeedSegmentArray.enumerated() {
             if (player == tappedPlayer) {
                 print("FOUND PLAYER: \(index)")
+                
+                // Set to current index
                 self.currentIdx = index
                 
+                // Queue Next
                 self.queueNextChatter(notification: notification)
             }
         }
-
-        // Set currIdx to that
-        // call queueNextChatter
-        
-//        self.queueNextChatter(notification: notification)
     }
     
     deinit {
@@ -152,9 +148,11 @@ class ChatterFeed: UIViewController {
     }
     
     @IBAction func animateButton(sender: UIButton) {
+        print("ACTION FIRED")
+        self.chatterFeedSegmentArray[self.prevIdx].player?.stop()
         
         sender.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-        
+
         UIView.animate(withDuration: 1.25,
                        delay: 0,
                        usingSpringWithDamping: CGFloat(0.20),
@@ -165,7 +163,7 @@ class ChatterFeed: UIViewController {
         },
                        completion: { Void in()  }
         )
-    
+
         switchDelegate?.SwitchRecChatterView(toPage: "recordView")
     }
 }

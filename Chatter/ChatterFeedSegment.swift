@@ -47,6 +47,7 @@ class ChatterFeedSegmentView: UIView, AVAudioPlayerDelegate {
         print("playing \(self.recordingURL)")
         
         player?.prepareToPlay()
+        player?.currentTime = 0
         //            player?.volume = 10.0
         player?.play()
         
@@ -60,8 +61,6 @@ class ChatterFeedSegmentView: UIView, AVAudioPlayerDelegate {
     }
     
     @objc func changeChatter() {
-        print("HELLOOOOOO\(self)")
-        
         let currPlayer: [String:ChatterFeedSegmentView] = ["player": self]
         
         NotificationCenter.default.post(name: .chatterChangedAndQueue, object: nil, userInfo: currPlayer)
