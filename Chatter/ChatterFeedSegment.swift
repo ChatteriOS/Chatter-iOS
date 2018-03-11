@@ -37,6 +37,8 @@ class ChatterFeedSegmentView: UIView {
     
     @objc func startPlay() {
         self.playAudio()
+        
+        // When finished playing, it should notify the main ChatterFeed VC
     }
     
     func playAudio() {

@@ -44,6 +44,9 @@ class Landing: UIViewController, SwitchRecChatterViewDelegate, SwitchChatterButt
         AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
         
         SwitchRecChatterView(toPage: "chatterView")
+        
+        // Notify ChatterFeed to start Chatter queue
+        NotificationCenter.default.post(name: .queueNextChatter, object: nil, userInfo: ["idx": 0])
     }
     
     @IBAction func animateButton(sender: UIButton) {

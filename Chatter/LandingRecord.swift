@@ -55,7 +55,6 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
         
         // Initialize Firebase DB Reference
         ref = Database.database().reference()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func viewDidLayoutSubviews() {
@@ -390,6 +389,7 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
 
 extension Notification.Name {
     static let trashing = Notification.Name("trashing")
+    static let queueNextChatter = Notification.Name("queueNextChatter")
 }
 
 extension LandingRecord: UIViewControllerTransitioningDelegate {

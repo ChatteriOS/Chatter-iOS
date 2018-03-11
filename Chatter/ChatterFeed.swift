@@ -19,20 +19,24 @@ class ChatterFeed: UIViewController {
     @IBOutlet weak var chatterScrollView: UIScrollView!
     @IBOutlet var chatterFeedView: UIView!
     
+    var switchDelegate:SwitchRecChatterViewDelegate?
+    
     var ref: DatabaseReference!
     let storage = Storage.storage()
     
-    var switchDelegate:SwitchRecChatterViewDelegate?
+    var chatterFeedSegmentArray: [ChatterFeedSegmentView] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        chatterFeedSegmentArray = []
+        
+        // Listens for Hear Chatter queue from Landing
+        NotificationCenter.default.addObserver(self, selector: #selector(queueNextChatter(notification:)), name: .queueNextChatter, object: nil)
+        
         ref = Database.database().reference()
         let storageRef = storage.reference()
         let userID = Auth.auth().currentUser?.uid
-        
-        var chatterSegmentArray: [URL] = []
-        let constructionGroup = DispatchGroup()
         
         // Setting up UI Constructors --------------------------------------------------------------------------
         chatterScrollView.contentSize = chatterFeedView.frame.size
@@ -44,7 +48,6 @@ class ChatterFeed: UIViewController {
 
         // Upon initialization, this will fire for EACH child in chatterFeed, and observe for each NEW -------------------------------------
         self.ref.child("users").child(userID!).child("chatterFeed").observe(.childAdded, with: { (snapshot) -> Void in
-            constructionGroup.enter()
             // ************* Remember to add conditional to filter/delete based on date **************
             
             let value = snapshot.value as? NSDictionary
@@ -81,13 +84,27 @@ class ChatterFeed: UIViewController {
             
             imageHeight = 300
             
-            constructionGroup.leave()
+            self.chatterFeedSegmentArray.append(newView)
         })
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc func queueFromStart(notification: NSNotification) {
+        
+    }
+    
+    @objc func queueNextChatter(notification: NSNotification) {
+        // Takes in an identifier, related to its position in overall array
+        print("AHHHHHHHHHHHHHHH")
+        print(self.chatterFeedSegmentArray)
+        
+        let idx = notification.userInfo!["idx"] as? Int
+        
+        self.chatterFeedSegmentArray[idx!].playAudio()
     }
     
     deinit {
