@@ -27,6 +27,7 @@ class ChatterFeed: UIViewController {
     var chatterFeedSegmentArray: [ChatterFeedSegmentView] = []
     // Current queue position of Feed
     var currentIdx: Int = 0
+    var prevIdx: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +37,7 @@ class ChatterFeed: UIViewController {
         // Listens for Hear Chatter queue from Landing
         NotificationCenter.default.addObserver(self, selector: #selector(queueNextChatter(notification:)), name: .queueNextChatter, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(chatterFinishedAndQueue(notification:)), name: .chatterFinishedAndQueue, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(chatterChangedAndQueue(notification:)), name: .chatterChangedAndQueue, object: nil)
         
         ref = Database.database().reference()
         let storageRef = storage.reference()
@@ -101,14 +103,13 @@ class ChatterFeed: UIViewController {
         print(self.chatterFeedSegmentArray)
         
         // Stop audio from previous Chatter
-        if (self.currentIdx != 0) {
-            self.chatterFeedSegmentArray[self.currentIdx - 1].player?.stop()
-        }   else {
-            self.chatterFeedSegmentArray[self.chatterFeedSegmentArray.count - 1].player?.stop()
+        if (self.chatterFeedSegmentArray[self.prevIdx].player?.isPlaying)! {
+            self.chatterFeedSegmentArray[self.prevIdx].player?.stop()
         }
         
         self.chatterFeedSegmentArray[self.currentIdx].playAudio()
         
+        self.prevIdx = self.currentIdx
         // Auto-Queuing from Hear Chatter button
         if (self.currentIdx + 1 < self.chatterFeedSegmentArray.count) {
             // Queue next Chatter
@@ -124,8 +125,24 @@ class ChatterFeed: UIViewController {
     }
     
     @objc func chatterChangedAndQueue(notification: NSNotification) {
-        // Stop current
-        self.queueNextChatter(notification: notification)
+        // Find out which Idx has been tapped
+        print("CHANGE RECEIVED: \(notification.userInfo!["player"])")
+        
+        let tappedPlayer = notification.userInfo!["player"] as! ChatterFeedSegmentView
+        
+        for (index, player) in self.chatterFeedSegmentArray.enumerated() {
+            if (player == tappedPlayer) {
+                print("FOUND PLAYER: \(index)")
+                self.currentIdx = index
+                
+                self.queueNextChatter(notification: notification)
+            }
+        }
+
+        // Set currIdx to that
+        // call queueNextChatter
+        
+//        self.queueNextChatter(notification: notification)
     }
     
     deinit {

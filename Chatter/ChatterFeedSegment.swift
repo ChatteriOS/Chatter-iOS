@@ -20,7 +20,15 @@ class ChatterFeedSegmentView: UIView, AVAudioPlayerDelegate {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+//
+//        do {
+//            player = try AVAudioPlayer(contentsOf: self.recordingURL)
+//        } catch let error as NSError {
+//            //self.player = nil
+//            print(error.localizedDescription)
+//        } catch {
+//            print("AVAudioPlayer init failed")
+//        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -38,17 +46,9 @@ class ChatterFeedSegmentView: UIView, AVAudioPlayerDelegate {
     @objc func playAudio() {
         print("playing \(self.recordingURL)")
         
-        do {
-            player = try AVAudioPlayer(contentsOf: self.recordingURL)
-            player?.prepareToPlay()
-            //            player?.volume = 10.0
-            player?.play()
-        } catch let error as NSError {
-            //self.player = nil
-            print(error.localizedDescription)
-        } catch {
-            print("AVAudioPlayer init failed")
-        }
+        player?.prepareToPlay()
+        //            player?.volume = 10.0
+        player?.play()
         
         // When finished playing, it should notify the main ChatterFeed VC
         player?.delegate = self as? AVAudioPlayerDelegate
@@ -57,6 +57,14 @@ class ChatterFeedSegmentView: UIView, AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         print("FINISHED PLAYING")
         NotificationCenter.default.post(name: .chatterFinishedAndQueue, object: nil)
+    }
+    
+    @objc func changeChatter() {
+        print("HELLOOOOOO\(self)")
+        
+        let currPlayer: [String:ChatterFeedSegmentView] = ["player": self]
+        
+        NotificationCenter.default.post(name: .chatterChangedAndQueue, object: nil, userInfo: currPlayer)
     }
     
     func generateAudioFile(audioURL: URL, id: String) {
@@ -69,6 +77,16 @@ class ChatterFeedSegmentView: UIView, AVAudioPlayerDelegate {
                 print("****** \(error)")
             } else {
                 self.recordingURL = url
+                
+                do {
+                    self.player = try AVAudioPlayer(contentsOf: self.recordingURL)
+                } catch let error as NSError {
+                    //self.player = nil
+                    print(error.localizedDescription)
+                } catch {
+                    print("AVAudioPlayer init failed")
+                }
+
             }
         }
     }
@@ -94,7 +112,7 @@ class ChatterFeedSegmentView: UIView, AVAudioPlayerDelegate {
         // Then add button to be on outer subview layer
         // Add play button
         let playButton = UIButton(frame: CGRect(x: 10, y: 10, width: 300, height: 400))
-        playButton.addTarget(self, action: #selector(playAudio), for: .touchUpInside)
+        playButton.addTarget(self, action: #selector(changeChatter), for: .touchUpInside)
         playButton.backgroundColor = UIColor(white: 1, alpha: 0.0)
         self.addSubview(playButton)
     }
