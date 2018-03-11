@@ -8,16 +8,46 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 class Profile: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var fullNameLabel: UILabel!
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var userAvatarButton: UIButton!
     
     var interactor:Interactor? = nil
-    
     var menuActionDelegate:MenuActionDelegate? = nil
-    
     let menuItems = ["First", "Second"]
+    
+    // Initialize FB storage + DB
+    var ref: DatabaseReference!
+    let userID = Auth.auth().currentUser?.uid
+    
+    override func viewDidLoad() {
+        ref = Database.database().reference()
+        
+        // Set user full name, username, and avatar button labels
+        ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            
+            let firstname = value?["firstname"] as? String ?? ""
+            let lastname = value?["lastname"] as? String ?? ""
+            
+            self.fullNameLabel.text = firstname + " " + lastname
+            
+            let username = value?["username"] as? String ?? ""
+            
+            self.usernameLabel.text = "@" + username
+            
+            // Label Avatar button
+            let firstnameLetter = String(describing: firstname.first!)
+            self.userAvatarButton.setTitle(firstnameLetter, for: .normal)
+            
+            self.configureAvatarButton()    
+        })
+        
+    }
     
     @IBAction func handleGesture(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: view)
@@ -49,6 +79,13 @@ class Profile: UIViewController {
                 self.menuActionDelegate?.reopenMenu()
             }
         }
+    }
+    
+    func configureAvatarButton() {
+        userAvatarButton.frame = CGRect(x: 18, y: 40, width: 40, height: 40)
+        userAvatarButton.layer.cornerRadius = 0.5 * userAvatarButton.bounds.size.width
+        userAvatarButton.clipsToBounds = true
+        userAvatarButton.backgroundColor = UIColor(red: 179/255, green: 95/255, blue: 232/255, alpha: 1.0)
     }
     
 }
