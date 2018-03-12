@@ -1,5 +1,5 @@
 //
-//  Profile.swift
+//  Menu.swift
 //  Chatter
 //
 //  Created by Austen Ma on 2/26/18.
@@ -10,44 +10,43 @@ import Foundation
 import UIKit
 import Firebase
 
-class Profile: UIViewController {
-    
-    @IBOutlet weak var fullNameLabel: UILabel!
-    @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var userAvatarButton: UIButton!
+class Menu: UIViewController, SwitchMenuFriendsViewDelegate {
+    @IBOutlet weak var friendsView: UIView!
+    @IBOutlet var menuView: UIView!
     
     var interactor:Interactor? = nil
     var menuActionDelegate:MenuActionDelegate? = nil
     let menuItems = ["First", "Second"]
     
-    // Initialize FB storage + DB
-    var ref: DatabaseReference!
-    let userID = Auth.auth().currentUser?.uid
-    
     override func viewDidLoad() {
-        ref = Database.database().reference()
-        
-        // Set user full name, username, and avatar button labels
-        ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
-            let value = snapshot.value as? NSDictionary
-            
-            let firstname = value?["firstname"] as? String ?? ""
-            let lastname = value?["lastname"] as? String ?? ""
-            
-            self.fullNameLabel.text = firstname + " " + lastname
-            
-            let username = value?["username"] as? String ?? ""
-            
-            self.usernameLabel.text = "@" + username
-            
-            // Label Avatar button
-            let firstnameLetter = String(describing: firstname.first!)
-            self.userAvatarButton.setTitle(firstnameLetter, for: .normal)
-            
-            self.configureAvatarButton()    
-        })
         
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? MenuView {
+            destination.switchDelegate = self
+        }
+        
+        if let destination = segue.destination as? FriendsView {
+            destination.switchDelegate = self
+        }
+    }
+
+    func SwitchMenuFriendsView(toPage: String) {
+        if (toPage == "friendsView") {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.menuView.alpha = 0.0
+                self.friendsView.alpha = 1.0
+            })
+        }   else {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.menuView.alpha = 1.0
+                self.friendsView.alpha = 0.0
+            })
+        }
+    }
+    
+    // SLIDE MENU FUNCTIONALITY -----------------------------------------------------------------------------------------------------
     
     @IBAction func handleGesture(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: view)
@@ -81,16 +80,9 @@ class Profile: UIViewController {
         }
     }
     
-    func configureAvatarButton() {
-        userAvatarButton.frame = CGRect(x: 18, y: 40, width: 40, height: 40)
-        userAvatarButton.layer.cornerRadius = 0.5 * userAvatarButton.bounds.size.width
-        userAvatarButton.clipsToBounds = true
-        userAvatarButton.backgroundColor = UIColor(red: 179/255, green: 95/255, blue: 232/255, alpha: 1.0)
-    }
-    
 }
 
-extension Profile: UITableViewDataSource {
+extension Menu: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return menuItems.count
     }
@@ -102,7 +94,7 @@ extension Profile: UITableViewDataSource {
     }
 }
 
-extension Profile: UITableViewDelegate {
+extension Menu: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         switch indexPath.row {
@@ -115,4 +107,5 @@ extension Profile: UITableViewDelegate {
         }
     }
 }
+
 

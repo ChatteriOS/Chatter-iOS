@@ -17,7 +17,7 @@ class LandingPageViewController: UIPageViewController {
     
     fileprivate lazy var pages: [UIViewController] = {
         return [
-//            self.getViewController(withIdentifier: "Profile"),
+//            self.getViewController(withIdentifier: "Menu"),
             self.getViewController(withIdentifier: "LandingPage"),
             self.getViewController(withIdentifier: "DiscoverFeed")
         ]

@@ -20,11 +20,13 @@
 		1A2E99B92042389F009A674C /* Buttons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A2E99B82042389F009A674C /* Buttons.xcassets */; };
 		1A2E99BB20424449009A674C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A2E99BA20424449009A674C /* GoogleService-Info.plist */; };
 		1A40B9CD20426F10006D61CC /* DiscoverFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A40B9CC20426F10006D61CC /* DiscoverFeed.swift */; };
+		1A4DA0D32055E1B5009E1DC9 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4DA0D22055E1B5009E1DC9 /* FriendsView.swift */; };
+		1A4DA0D52055EE85009E1DC9 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4DA0D42055EE85009E1DC9 /* MenuView.swift */; };
 		1AC61FBD204696CF0016AB83 /* LandingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC61FBC204696CF0016AB83 /* LandingRecord.swift */; };
 		1AD7925C20510C8B007131CB /* DrawWaveForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD7925B20510C8B007131CB /* DrawWaveForm.swift */; };
 		1AF2BD3D2043F79500AF1B8A /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF2BD3C2043F79500AF1B8A /* Login.swift */; };
 		1AF2BD412043F8B500AF1B8A /* LandingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF2BD402043F8B500AF1B8A /* LandingPageViewController.swift */; };
-		1AF2BD432043FA0200AF1B8A /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF2BD422043FA0200AF1B8A /* Profile.swift */; };
+		1AF2BD432043FA0200AF1B8A /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF2BD422043FA0200AF1B8A /* Menu.swift */; };
 		1AF2BD45204549B500AF1B8A /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF2BD44204549B500AF1B8A /* SignUp.swift */; };
 		1AFE56542047CB2400C9E8A2 /* ChatterFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AFE56532047CB2400C9E8A2 /* ChatterFeed.swift */; };
 		1AFE565A2047E4F100C9E8A2 /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AFE56592047E4F100C9E8A2 /* Interactor.swift */; };
@@ -73,11 +75,13 @@
 		1A2E99B82042389F009A674C /* Buttons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Buttons.xcassets; sourceTree = "<group>"; };
 		1A2E99BA20424449009A674C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1A40B9CC20426F10006D61CC /* DiscoverFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverFeed.swift; sourceTree = "<group>"; };
+		1A4DA0D22055E1B5009E1DC9 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
+		1A4DA0D42055EE85009E1DC9 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		1AC61FBC204696CF0016AB83 /* LandingRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingRecord.swift; sourceTree = "<group>"; };
 		1AD7925B20510C8B007131CB /* DrawWaveForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawWaveForm.swift; sourceTree = "<group>"; };
 		1AF2BD3C2043F79500AF1B8A /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		1AF2BD402043F8B500AF1B8A /* LandingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPageViewController.swift; sourceTree = "<group>"; };
-		1AF2BD422043FA0200AF1B8A /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		1AF2BD422043FA0200AF1B8A /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		1AF2BD44204549B500AF1B8A /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		1AFE56532047CB2400C9E8A2 /* ChatterFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatterFeed.swift; sourceTree = "<group>"; };
 		1AFE56592047E4F100C9E8A2 /* Interactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
@@ -159,7 +163,9 @@
 				1A2E999220420A29009A674C /* Info.plist */,
 				1AF2BD3C2043F79500AF1B8A /* Login.swift */,
 				1AF2BD402043F8B500AF1B8A /* LandingPageViewController.swift */,
-				1AF2BD422043FA0200AF1B8A /* Profile.swift */,
+				1AF2BD422043FA0200AF1B8A /* Menu.swift */,
+				1A4DA0D22055E1B5009E1DC9 /* FriendsView.swift */,
+				1A4DA0D42055EE85009E1DC9 /* MenuView.swift */,
 				1AF2BD44204549B500AF1B8A /* SignUp.swift */,
 				1AC61FBC204696CF0016AB83 /* LandingRecord.swift */,
 				1AFE565F2047E9B400C9E8A2 /* DismissMenuAnimator.swift */,
@@ -524,8 +530,9 @@
 				1A271486204939650058B33D /* ChatterFeedSegment.swift in Sources */,
 				1AF2BD412043F8B500AF1B8A /* LandingPageViewController.swift in Sources */,
 				1AFE565A2047E4F100C9E8A2 /* Interactor.swift in Sources */,
+				1A4DA0D32055E1B5009E1DC9 /* FriendsView.swift in Sources */,
 				1AC61FBD204696CF0016AB83 /* LandingRecord.swift in Sources */,
-				1AF2BD432043FA0200AF1B8A /* Profile.swift in Sources */,
+				1AF2BD432043FA0200AF1B8A /* Menu.swift in Sources */,
 				1AFE56542047CB2400C9E8A2 /* ChatterFeed.swift in Sources */,
 				1AFE56622047ED3700C9E8A2 /* ChatterBox.swift in Sources */,
 				1A2E998920420A29009A674C /* Landing.swift in Sources */,
@@ -534,6 +541,7 @@
 				1A27148820493A4C0058B33D /* CustomSlider.swift in Sources */,
 				1AF2BD3D2043F79500AF1B8A /* Login.swift in Sources */,
 				1AFE565E2047E5A900C9E8A2 /* PresentMenuAnimator.swift in Sources */,
+				1A4DA0D52055EE85009E1DC9 /* MenuView.swift in Sources */,
 				1A2E998720420A29009A674C /* AppDelegate.swift in Sources */,
 				1A40B9CD20426F10006D61CC /* DiscoverFeed.swift in Sources */,
 			);
