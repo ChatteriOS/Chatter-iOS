@@ -22,6 +22,7 @@
 		1A40B9CD20426F10006D61CC /* DiscoverFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A40B9CC20426F10006D61CC /* DiscoverFeed.swift */; };
 		1A4DA0D32055E1B5009E1DC9 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4DA0D22055E1B5009E1DC9 /* FriendsView.swift */; };
 		1A4DA0D52055EE85009E1DC9 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4DA0D42055EE85009E1DC9 /* MenuView.swift */; };
+		1AA4C6A12056181300AD3980 /* AddFriendPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4C6A02056181300AD3980 /* AddFriendPopup.swift */; };
 		1AC61FBD204696CF0016AB83 /* LandingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC61FBC204696CF0016AB83 /* LandingRecord.swift */; };
 		1AD7925C20510C8B007131CB /* DrawWaveForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD7925B20510C8B007131CB /* DrawWaveForm.swift */; };
 		1AF2BD3D2043F79500AF1B8A /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF2BD3C2043F79500AF1B8A /* Login.swift */; };
@@ -77,6 +78,7 @@
 		1A40B9CC20426F10006D61CC /* DiscoverFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverFeed.swift; sourceTree = "<group>"; };
 		1A4DA0D22055E1B5009E1DC9 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		1A4DA0D42055EE85009E1DC9 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		1AA4C6A02056181300AD3980 /* AddFriendPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendPopup.swift; sourceTree = "<group>"; };
 		1AC61FBC204696CF0016AB83 /* LandingRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingRecord.swift; sourceTree = "<group>"; };
 		1AD7925B20510C8B007131CB /* DrawWaveForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawWaveForm.swift; sourceTree = "<group>"; };
 		1AF2BD3C2043F79500AF1B8A /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				1AF2BD402043F8B500AF1B8A /* LandingPageViewController.swift */,
 				1AF2BD422043FA0200AF1B8A /* Menu.swift */,
 				1A4DA0D22055E1B5009E1DC9 /* FriendsView.swift */,
+				1AA4C6A02056181300AD3980 /* AddFriendPopup.swift */,
 				1A4DA0D42055EE85009E1DC9 /* MenuView.swift */,
 				1AF2BD44204549B500AF1B8A /* SignUp.swift */,
 				1AC61FBC204696CF0016AB83 /* LandingRecord.swift */,
@@ -526,6 +529,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1AFE56602047E9B400C9E8A2 /* DismissMenuAnimator.swift in Sources */,
+				1AA4C6A12056181300AD3980 /* AddFriendPopup.swift in Sources */,
 				1AF2BD45204549B500AF1B8A /* SignUp.swift in Sources */,
 				1A271486204939650058B33D /* ChatterFeedSegment.swift in Sources */,
 				1AF2BD412043F8B500AF1B8A /* LandingPageViewController.swift in Sources */,
