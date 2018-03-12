@@ -64,6 +64,17 @@ class MenuView: UIViewController {
         switchMenuInvitesDelegate?.SwitchMenuInvitesView(toPage: "invitesView")
     }
     
+    @IBAction func signOut(sender: UIButton) {
+        do {
+            try Auth.auth().signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+        
+        // Calls unwind method to log out
+        self.performSegue(withIdentifier: "unwindToLogin", sender: self)
+    }
+    
     func configureAvatarButton() {
         userAvatarButton.frame = CGRect(x: 18, y: 40, width: 40, height: 40)
         userAvatarButton.layer.cornerRadius = 0.5 * userAvatarButton.bounds.size.width

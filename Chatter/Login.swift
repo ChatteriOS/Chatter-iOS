@@ -44,4 +44,7 @@ class Login: UIViewController {
         });
     }
     
+    // Unwinds got Logging Out
+    @IBAction func unwindToLogin(segue: UIStoryboardSegue) {}
+    
 }

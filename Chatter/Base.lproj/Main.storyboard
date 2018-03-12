@@ -770,11 +770,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Help Center"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a9a-ZT-Rv4">
-                                <rect key="frame" x="18" y="618" width="68" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Feedback"/>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="First/Last Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4QE-Xs-HkO">
                                 <rect key="frame" x="16" y="88" width="265" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -800,6 +795,14 @@
                                     <action selector="goToInvitesWithSender:" destination="sTj-sJ-NbN" eventType="touchUpInside" id="LaR-Me-z5I"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a9a-ZT-Rv4">
+                                <rect key="frame" x="16" y="618" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Sign Out"/>
+                                <connections>
+                                    <action selector="signOutWithSender:" destination="sTj-sJ-NbN" eventType="touchUpInside" id="b4r-HF-M2n"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="A2y-4B-K4y"/>
@@ -808,9 +811,11 @@
                         <outlet property="fullNameLabel" destination="4QE-Xs-HkO" id="jzd-Hk-jrk"/>
                         <outlet property="userAvatarButton" destination="Kcl-H3-02F" id="M3g-v4-nlq"/>
                         <outlet property="usernameLabel" destination="bum-Yv-eOS" id="p99-Sw-i3Y"/>
+                        <segue destination="gbM-pK-tkH" kind="unwind" identifier="unwindToLogin" unwindAction="unwindToLoginWithSegue:" id="4by-iO-mGO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3aX-ac-rlB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="gbM-pK-tkH" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1480.8" y="1208.5457271364319"/>
         </scene>
