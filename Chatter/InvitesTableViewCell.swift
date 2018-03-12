@@ -8,11 +8,29 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 class InvitesTableViewCell: UITableViewCell {
     @IBOutlet weak var inviterUsernameLabel: UILabel!
     @IBOutlet weak var inviteDenyButton: UIButton!
     @IBOutlet weak var inviteAcceptButton: UIButton!
+    
+    var inviterID: String!
+    let userID = Auth.auth().currentUser?.uid
+    
+    @IBAction func acceptInvitation(sender: UIButton) {
+        print(self.inviterID)
+        
+        // USE InviterID and UserID to exchange friend list data
+        // Popup modal to show invitation accepted
+        // Delete Invitation
+    }
+    
+    @IBAction func denyInvitation(sender: UIButton) {
+        print(self.inviterID)
+        
+        // Delete Invitation
+    }
     
     @IBAction func animateButton(sender: UIButton) {
         sender.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)

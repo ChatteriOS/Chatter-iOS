@@ -854,6 +854,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="Check"/>
                                                     <connections>
+                                                        <action selector="acceptInvitationWithSender:" destination="nIB-oJ-2Du" eventType="touchUpInside" id="fOX-FB-vAi"/>
                                                         <action selector="animateButtonWithSender:" destination="nIB-oJ-2Du" eventType="touchUpInside" id="Bvm-SX-Ket"/>
                                                     </connections>
                                                 </button>
@@ -870,6 +871,7 @@
                                                     <state key="normal" image="RedX"/>
                                                     <connections>
                                                         <action selector="animateButtonWithSender:" destination="nIB-oJ-2Du" eventType="touchUpInside" id="WYv-LY-DjZ"/>
+                                                        <action selector="denyInvitationWithSender:" destination="nIB-oJ-2Du" eventType="touchUpInside" id="o3q-IT-EEg"/>
                                                     </connections>
                                                 </button>
                                             </subviews>

@@ -20,12 +20,14 @@ class InvitesView: UIViewController, UITableViewDataSource, UITableViewDelegate 
     var ref: DatabaseReference!
     let userID = Auth.auth().currentUser?.uid
     
-    var invitationsArray: [String]!
+    var invitationsLabelArray: [String]!
+    var invitationsIDArray: [String]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
-        self.invitationsArray = []
+        self.invitationsLabelArray = []
+        self.invitationsIDArray = []
         
         // Needed to initialize table view programmatically
         invitesTableView.delegate = self
@@ -44,7 +46,8 @@ class InvitesView: UIViewController, UITableViewDataSource, UITableViewDelegate 
                     self.ref.child("users").child(inviterID!).child("username").observeSingleEvent(of: .value, with: { (snapshot) in
                         let inviterUsername = snapshot.value as? String
                         
-                        self.invitationsArray.append(inviterUsername!)
+                        self.invitationsLabelArray.append(inviterUsername!)
+                        self.invitationsIDArray.append(inviterID!)
                         
                         // Populate the Table View as the invitations are loaded
                         self.invitesTableView.reloadData()
@@ -78,7 +81,7 @@ class InvitesView: UIViewController, UITableViewDataSource, UITableViewDelegate 
     // Table View Methods -------------------------------------------------------------------------------------------------
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.invitationsArray.count
+        return self.invitationsLabelArray.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -94,7 +97,8 @@ class InvitesView: UIViewController, UITableViewDataSource, UITableViewDelegate 
         // Allow button clicks on cells
         cell.contentView.isUserInteractionEnabled = true
         cell.frame.size.height = 100
-        cell.inviterUsernameLabel.text = invitationsArray[indexPath.row]
+        cell.inviterUsernameLabel.text = invitationsLabelArray[indexPath.row]
+        cell.inviterID = invitationsIDArray[indexPath.row]
         return cell
     }
 }

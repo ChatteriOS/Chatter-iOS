@@ -50,7 +50,7 @@ class AddFriendModal: UIViewController {
                     
                     // Send an invitation by storing an invitation property in the invited's data
                     let invitationData: [String: String] = [self.userID!: "Invitation Message Link Here!"]
-                    self.ref.child("users").child(inviteUserID!).child("invitations").setValue(invitationData) { (error, ref) -> Void in
+                    self.ref.child("users").child(inviteUserID!).child("invitations").updateChildValues(invitationData) { (error, ref) -> Void in
                         self.dismiss(animated: true, completion: nil)
                     }
                 }
