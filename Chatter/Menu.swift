@@ -10,9 +10,10 @@ import Foundation
 import UIKit
 import Firebase
 
-class Menu: UIViewController, SwitchMenuFriendsViewDelegate {
+class Menu: UIViewController, SwitchMenuFriendsViewDelegate, SwitchMenuInvitesViewDelegate {
     @IBOutlet weak var friendsView: UIView!
     @IBOutlet var menuView: UIView!
+    @IBOutlet weak var invitesView: UIView!
     
     var interactor:Interactor? = nil
     var menuActionDelegate:MenuActionDelegate? = nil
@@ -24,10 +25,15 @@ class Menu: UIViewController, SwitchMenuFriendsViewDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? MenuView {
-            destination.switchDelegate = self
+            destination.switchMenuFriendsDelegate = self
+            destination.switchMenuInvitesDelegate = self
         }
         
         if let destination = segue.destination as? FriendsView {
+            destination.switchDelegate = self
+        }
+        
+        if let destination = segue.destination as? InvitesView {
             destination.switchDelegate = self
         }
     }
@@ -36,12 +42,30 @@ class Menu: UIViewController, SwitchMenuFriendsViewDelegate {
         if (toPage == "friendsView") {
             UIView.animate(withDuration: 0.5, animations: {
                 self.menuView.alpha = 0.0
+                self.invitesView.alpha = 0.0
                 self.friendsView.alpha = 1.0
             })
         }   else {
             UIView.animate(withDuration: 0.5, animations: {
                 self.menuView.alpha = 1.0
                 self.friendsView.alpha = 0.0
+                self.invitesView.alpha = 0.0
+            })
+        }
+    }
+    
+    func SwitchMenuInvitesView(toPage: String) {
+        if (toPage == "invitesView") {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.menuView.alpha = 0.0
+                self.friendsView.alpha = 0.0
+                self.invitesView.alpha = 1.0
+            })
+        }   else {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.menuView.alpha = 1.0
+                self.invitesView.alpha = 0.0
+                self.invitesView.alpha = 0.0
             })
         }
     }

@@ -15,6 +15,11 @@ protocol SwitchMenuFriendsViewDelegate
     func SwitchMenuFriendsView(toPage: String)
 }
 
+protocol SwitchMenuInvitesViewDelegate
+{
+    func SwitchMenuInvitesView(toPage: String)
+}
+
 class MenuView: UIViewController {
     @IBOutlet weak var fullNameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
@@ -24,7 +29,8 @@ class MenuView: UIViewController {
     var ref: DatabaseReference!
     let userID = Auth.auth().currentUser?.uid
     
-    var switchDelegate:SwitchMenuFriendsViewDelegate?
+    var switchMenuFriendsDelegate:SwitchMenuFriendsViewDelegate?
+    var switchMenuInvitesDelegate:SwitchMenuInvitesViewDelegate?
     
     override func viewDidLoad() {
         ref = Database.database().reference()
@@ -51,7 +57,11 @@ class MenuView: UIViewController {
     }
     
     @IBAction func goToFriends(sender: AnyObject) {
-        switchDelegate?.SwitchMenuFriendsView(toPage: "friendsView")
+        switchMenuFriendsDelegate?.SwitchMenuFriendsView(toPage: "friendsView")
+    }
+    
+    @IBAction func goToInvites(sender: AnyObject) {
+        switchMenuInvitesDelegate?.SwitchMenuInvitesView(toPage: "invitesView")
     }
     
     func configureAvatarButton() {

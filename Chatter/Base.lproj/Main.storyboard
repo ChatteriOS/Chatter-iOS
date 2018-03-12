@@ -308,6 +308,13 @@
                                     <outletCollection property="gestureRecognizers" destination="mXd-NZ-w0z" appends="YES" id="MbI-zI-6TH"/>
                                 </connections>
                             </button>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aSQ-M6-3ee">
+                                <rect key="frame" x="0.0" y="0.0" width="297" height="667"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="w47-MN-TZf" kind="embed" identifier="goToInvites" id="sfU-3o-doV"/>
+                                </connections>
+                            </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NTY-rg-11f" userLabel="Friends View">
                                 <rect key="frame" x="0.0" y="-7" width="297" height="674"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -328,6 +335,7 @@
                     </view>
                     <connections>
                         <outlet property="friendsView" destination="NTY-rg-11f" id="am0-pL-Q86"/>
+                        <outlet property="invitesView" destination="aSQ-M6-3ee" id="OGH-jR-vV8"/>
                         <outlet property="menuView" destination="y2L-fl-r1p" id="iSh-Av-L8H"/>
                     </connections>
                 </viewController>
@@ -645,7 +653,6 @@
                                             <color key="titleColor" red="0.67572908970000001" green="0.53172568139999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="closePopupWithSender:" destination="8qB-VU-80q" eventType="touchUpInside" id="8SU-43-kNT"/>
                                             <action selector="sendInviteWithSender:" destination="8qB-VU-80q" eventType="touchUpInside" id="714-qU-5EF"/>
                                         </connections>
                                     </button>
@@ -668,7 +675,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button" image="X"/>
                                         <connections>
-                                            <action selector="closePopupWithSender:" destination="8qB-VU-80q" eventType="touchUpInside" id="Hoj-In-dDy"/>
+                                            <action selector="closeModalWithSender:" destination="8qB-VU-80q" eventType="touchUpInside" id="Xhg-hJ-6Zh"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -679,6 +686,7 @@
                         <viewLayoutGuide key="safeArea" id="7eQ-NY-nU9"/>
                     </view>
                     <connections>
+                        <outlet property="inviteUsernameInput" destination="zae-7M-gkP" id="5I5-en-fzB"/>
                         <outlet property="modalView" destination="fms-zi-EeQ" id="HWq-UJ-Dhk"/>
                     </connections>
                 </viewController>
@@ -777,7 +785,10 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IIe-QR-Mkh">
                                 <rect key="frame" x="15" y="384" width="45" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button" image="Image"/>
+                                <state key="normal" title="Button" image="Invitations"/>
+                                <connections>
+                                    <action selector="goToInvitesWithSender:" destination="sTj-sJ-NbN" eventType="touchUpInside" id="o5I-lH-R6M"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oui-ln-WPX">
                                 <rect key="frame" x="60" y="391" width="73" height="30"/>
@@ -785,6 +796,9 @@
                                 <state key="normal" title="Invites">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="goToInvitesWithSender:" destination="sTj-sJ-NbN" eventType="touchUpInside" id="LaR-Me-z5I"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -800,16 +814,88 @@
             </objects>
             <point key="canvasLocation" x="1480.8" y="1208.5457271364319"/>
         </scene>
+        <!--Invites View-->
+        <scene sceneID="JMU-UN-iz3">
+            <objects>
+                <viewController id="w47-MN-TZf" customClass="InvitesView" customModule="Chatter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aWY-dK-AVw">
+                        <rect key="frame" x="0.0" y="0.0" width="297" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wa7-YC-KaB">
+                                <rect key="frame" x="21" y="43" width="26" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="LeftPointingArrow"/>
+                                <connections>
+                                    <action selector="backToMenu" destination="w47-MN-TZf" eventType="touchUpInside" id="ens-9f-NwO"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Invitations" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yh5-GK-ESu">
+                                <rect key="frame" x="98" y="47" width="100" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                <color key="textColor" red="0.67572908970000001" green="0.53172568139999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xrM-Sy-hAa">
+                                <rect key="frame" x="0.0" y="93" width="297" height="574"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="InvitesTableViewCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="89" id="nIB-oJ-2Du" customClass="InvitationsTableCell" customModule="Chatter" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="297" height="89"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nIB-oJ-2Du" id="NRJ-ac-83I">
+                                            <rect key="frame" x="0.0" y="0.0" width="297" height="88.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hu9-ma-CdC">
+                                                    <rect key="frame" x="170" y="19" width="77" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" image="Check"/>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YOt-mM-diS">
+                                                    <rect key="frame" x="33" y="19" width="129" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                                    <color key="textColor" red="0.2125202588" green="0.21933694949999999" blue="0.21835542220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cKu-nY-Ngm">
+                                                    <rect key="frame" x="247" y="27" width="35" height="35"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" image="RedX"/>
+                                                </button>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="bJy-qb-s3S"/>
+                    </view>
+                    <connections>
+                        <outlet property="backToMenuButton" destination="Wa7-YC-KaB" id="g4s-BZ-Pyw"/>
+                        <outlet property="invitesTableView" destination="xrM-Sy-hAa" id="qUG-2T-ZQK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A3d-vq-wRn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="205.59999999999999" y="1208.5457271364319"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Add" width="50" height="50"/>
         <image name="Chatterbox" width="50" height="50"/>
+        <image name="Check" width="50" height="50"/>
         <image name="Compose" width="45" height="45"/>
         <image name="Friends" width="50" height="50"/>
-        <image name="Image" width="50" height="50"/>
+        <image name="Invitations" width="50" height="50"/>
         <image name="LeftPointingArrow" width="25" height="25"/>
         <image name="Profile" width="40" height="40"/>
         <image name="PurpleButton" width="300" height="300"/>
+        <image name="RedX" width="50" height="50"/>
         <image name="RobotProfile" width="50" height="50"/>
         <image name="Saved" width="40" height="40"/>
         <image name="Trash" width="57" height="57"/>

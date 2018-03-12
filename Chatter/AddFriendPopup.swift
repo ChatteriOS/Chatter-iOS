@@ -12,8 +12,10 @@ import Firebase
 
 class AddFriendModal: UIViewController {
     @IBOutlet weak var modalView: UIView!
+    @IBOutlet weak var inviteUsernameInput: UITextField!
     
     var ref: DatabaseReference!
+    let userID = Auth.auth().currentUser?.uid
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,19 +27,35 @@ class AddFriendModal: UIViewController {
         
         // Initiate Firebase
         ref = Database.database().reference()
-        let userID = Auth.auth().currentUser?.uid
+    }
+    
+    @IBAction func closeModal(sender: AnyObject) {
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func sendInvite(sender: AnyObject) {
+        guard let inviteUsername = inviteUsernameInput.text else {return}
+        
         ref.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
             
+            // Iterate through users to find matching user data with username
             for user in value! {
-                print("USER: \(user)")
+                let inviteUserDetails = user.value as? NSDictionary
+                
+                if (String(describing: inviteUserDetails!["username"]!) == inviteUsername) {
+                    print("FOUND USER: \(user)")
+                    
+                    let inviteUserID = user.key as? String
+                    
+                    // Send an invitation by storing an invitation property in the invited's data
+                    let invitationData: [String: String] = [self.userID!: "Invitation Message Link Here!"]
+                    self.ref.child("users").child(inviteUserID!).child("invitations").setValue(invitationData) { (error, ref) -> Void in
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                }
             }
         })
-        
-        dismiss(animated: true, completion: nil)
     }
 }
 
