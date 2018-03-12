@@ -842,17 +842,20 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="InvitesTableViewCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="89" id="nIB-oJ-2Du" customClass="InvitationsTableCell" customModule="Chatter" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="297" height="89"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="InvitesTableViewCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="InvitesTableViewCell" rowHeight="90" id="nIB-oJ-2Du" customClass="InvitesTableViewCell" customModule="Chatter" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="297" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nIB-oJ-2Du" id="NRJ-ac-83I">
-                                            <rect key="frame" x="0.0" y="0.0" width="297" height="88.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="297" height="89.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hu9-ma-CdC">
                                                     <rect key="frame" x="170" y="19" width="77" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="Check"/>
+                                                    <connections>
+                                                        <action selector="animateButtonWithSender:" destination="nIB-oJ-2Du" eventType="touchUpInside" id="Bvm-SX-Ket"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YOt-mM-diS">
                                                     <rect key="frame" x="33" y="19" width="129" height="50"/>
@@ -865,9 +868,17 @@
                                                     <rect key="frame" x="247" y="27" width="35" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="RedX"/>
+                                                    <connections>
+                                                        <action selector="animateButtonWithSender:" destination="nIB-oJ-2Du" eventType="touchUpInside" id="WYv-LY-DjZ"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="inviteAcceptButton" destination="hu9-ma-CdC" id="yY8-CZ-wLX"/>
+                                            <outlet property="inviteDenyButton" destination="cKu-nY-Ngm" id="c2P-eA-dOE"/>
+                                            <outlet property="inviterUsernameLabel" destination="YOt-mM-diS" id="G8v-xp-enp"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
