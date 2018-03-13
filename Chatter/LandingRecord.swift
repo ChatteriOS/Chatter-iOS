@@ -198,10 +198,10 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
 //                    let downloadURL = metadata!.downloadURL()
                     
                     // Write to the ChatterFeed string in FB-DB
-                    self.ref.child("users").child(userID!).child("chatterFeed").observeSingleEvent(of: .value, with: { (snapshot) in
-                        // Retrieve existing ChatterFeed string
-                        let value = snapshot.value
-                        let currChatterFeedCount = (value as AnyObject).count
+                    self.ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+                        // Retrieve existing ChatterFeed
+                        let value = snapshot.value as? NSDictionary
+                        let currChatterFeedCount = (value!["chatterFeed"] as AnyObject).count
                         
                         // Generating chatterFeed # identifier
                         var countIdentifier: Int
@@ -216,9 +216,42 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
                         chatterFeedSegment = ["id": fullAudioID, "userDetails": userID!, "dateCreated": self.getCurrentDate()]
 
                         let childUpdates = ["\(countIdentifier)": chatterFeedSegment]
-                        self.ref.child("users").child(userID!).child("chatterFeed").updateChildValues(childUpdates)
                         
-                        print("SAVE SUCCESS")
+                        // Get the list of friends
+                        let friends = value!["friends"] as! NSDictionary
+                        
+                        // Update your Chatter feed, then feed in all friends
+                        self.ref.child("users").child(userID!).child("chatterFeed").updateChildValues(childUpdates) {error, ref in
+                            
+                            // Iterate through each friend and update their feed
+                            for friend in friends {
+                                let friendID = friend.key as? String
+                                self.ref.child("users").child(friendID!).child("chatterFeed").observeSingleEvent(of: .value, with: { (friendSnapshot) in
+                                    let friendValue = friendSnapshot.value as? Any
+                                    let friendChatterFeedCount = (friendValue! as AnyObject).count
+                                    
+                                    // Generating friend chatterFeed # identifier
+                                    var friendCountIdentifier: Int
+                                    if ((friendChatterFeedCount) != nil) {
+                                        friendCountIdentifier = friendChatterFeedCount!
+                                    }   else {
+                                        friendCountIdentifier = 0
+                                    }
+                                    
+                                    // Construct friend ChatterFeed segment
+                                    var friendChatterFeedSegment = Dictionary<String, Any>()
+                                    friendChatterFeedSegment = ["id": fullAudioID, "userDetails": userID!, "dateCreated": self.getCurrentDate()]
+                                    
+                                    let friendChildUpdates = ["\(friendCountIdentifier)": friendChatterFeedSegment]
+                                    
+                                    self.ref.child("users").child(friendID!).child("chatterFeed").updateChildValues(friendChildUpdates) {error, ref in
+                                        print("UPDATE PROCESS COMPLETE: \(friendID)")
+                                    }
+                                })
+                            }
+                        }
+                        
+                        print("LOCAL SAVE SUCCESS")
                     
                     }) { (error) in
                         print(error.localizedDescription)

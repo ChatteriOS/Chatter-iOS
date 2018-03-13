@@ -26,6 +26,9 @@ class FriendsView: UIViewController, UITableViewDataSource, UITableViewDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Listens for invitation Acceptance
+        NotificationCenter.default.addObserver(self, selector: #selector(invitationAccepted(notification:)), name: .invitationAcceptedRerenderFriends, object: nil)
+        
         ref = Database.database().reference()
         
         friendsTableView.delegate = self
@@ -88,6 +91,10 @@ class FriendsView: UIViewController, UITableViewDataSource, UITableViewDelegate 
         })  { (error) in
             print(error.localizedDescription)
         }
+    }
+    
+    @objc func invitationAccepted(notification: NSNotification) {
+        RerendeFriendsTableView()
     }
     
     // Table View Methods --------------------------------------------------------------------------------

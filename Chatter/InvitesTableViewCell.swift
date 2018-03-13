@@ -38,6 +38,9 @@ class InvitesTableViewCell: UITableViewCell {
                 self.ref.child("users").child(self.userID!).child("invitations").child(self.inviterID).removeValue() { error, ref in
                     // Call re-render on tableView
                     self.rerenderDelegate?.RerenderInvitationsTableView()
+                    
+                    // Send notification to re-render Friends tableView
+                    NotificationCenter.default.post(name: .invitationAcceptedRerenderFriends, object: nil)
                 }
             }
         }

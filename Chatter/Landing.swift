@@ -105,5 +105,8 @@ extension Notification.Name {
     static let queueNextChatter = Notification.Name("queueNextChatter")
     static let chatterFinishedAndQueue = Notification.Name("chatterFinishedAndQueue")
     static let chatterChangedAndQueue = Notification.Name("chatterChangedAndQueue")
+    
+    // When invitation is accepted, updates Friends list
+    static let invitationAcceptedRerenderFriends = Notification.Name("invitationAcceptedRerenderFriends")
 }
 
