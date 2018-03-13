@@ -41,16 +41,17 @@ class AddFriendModal: UIViewController {
             
             // Iterate through users to find matching user data with username
             for user in value! {
-                let inviteUserDetails = user.value as? NSDictionary
+                let currUserDetails = user.value as? NSDictionary
+                let currUserID = user.key as? String
                 
-                if (String(describing: inviteUserDetails!["username"]!) == inviteUsername) {
+                if (String(describing: currUserDetails!["username"]!) == inviteUsername && self.userID != currUserID) {
                     print("FOUND USER: \(user)")
                     
-                    let inviteUserID = user.key as? String
+                    let invitedUserID = user.key as? String
                     
                     // Send an invitation by storing an invitation property in the invited's data
                     let invitationData: [String: String] = [self.userID!: "Invitation Message Link Here!"]
-                    self.ref.child("users").child(inviteUserID!).child("invitations").updateChildValues(invitationData) { (error, ref) -> Void in
+                    self.ref.child("users").child(invitedUserID!).child("invitations").updateChildValues(invitationData) { (error, ref) -> Void in
                         self.dismiss(animated: true, completion: nil)
                     }
                 }

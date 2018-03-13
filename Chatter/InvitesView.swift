@@ -10,12 +10,12 @@ import Foundation
 import UIKit
 import Firebase
 
-class InvitesView: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class InvitesView: UIViewController, UITableViewDataSource, UITableViewDelegate, RerenderInvitationsTableViewDelegate {
     
     @IBOutlet weak var invitesTableView: UITableView!
     @IBOutlet weak var backToMenuButton: UIButton!
     
-    var switchDelegate:SwitchMenuFriendsViewDelegate?
+    var switchDelegate:SwitchMenuInvitesViewDelegate?
     
     var ref: DatabaseReference!
     let userID = Auth.auth().currentUser?.uid
@@ -25,16 +25,39 @@ class InvitesView: UIViewController, UITableViewDataSource, UITableViewDelegate 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         ref = Database.database().reference()
-        self.invitationsLabelArray = []
-        self.invitationsIDArray = []
         
         // Needed to initialize table view programmatically
         invitesTableView.delegate = self
         invitesTableView.dataSource = self
         
+        RerenderInvitationsTableView()
+    }
+    
+    @IBAction func backToMenu() {
+        backToMenuButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        
+        UIView.animate(withDuration: 1.25,
+                       delay: 0,
+                       usingSpringWithDamping: CGFloat(0.40),
+                       initialSpringVelocity: CGFloat(6.0),
+                       options: UIViewAnimationOptions.allowUserInteraction,
+                       animations: {
+                        self.backToMenuButton.transform = CGAffineTransform.identity
+        },
+                       completion: { Void in()  }
+        )
+        
+        switchDelegate?.SwitchMenuInvitesView(toPage: "menuView")
+    }
+    
+    func RerenderInvitationsTableView() {
+        self.invitationsLabelArray = []
+        self.invitationsIDArray = []
+        
         // Grab the invites array from DB
-        ref.child("users").child(userID!).child("invitations").observeSingleEvent(of: .value, with: { (snapshot) in
+        self.ref.child("users").child(userID!).child("invitations").observeSingleEvent(of: .value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
             
             if (value != nil) {
@@ -55,27 +78,12 @@ class InvitesView: UIViewController, UITableViewDataSource, UITableViewDelegate 
                         print(error.localizedDescription)
                     }
                 }
+            }   else {
+                self.invitesTableView.reloadData()
             }
         })  { (error) in
             print(error.localizedDescription)
         }
-    }
-    
-    @IBAction func backToMenu() {
-        backToMenuButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-        
-        UIView.animate(withDuration: 1.25,
-                       delay: 0,
-                       usingSpringWithDamping: CGFloat(0.40),
-                       initialSpringVelocity: CGFloat(6.0),
-                       options: UIViewAnimationOptions.allowUserInteraction,
-                       animations: {
-                        self.backToMenuButton.transform = CGAffineTransform.identity
-        },
-                       completion: { Void in()  }
-        )
-        
-        switchDelegate?.SwitchMenuFriendsView(toPage: "menuView")
     }
     
     // Table View Methods -------------------------------------------------------------------------------------------------
@@ -96,6 +104,11 @@ class InvitesView: UIViewController, UITableViewDataSource, UITableViewDelegate 
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         // Allow button clicks on cells
         cell.contentView.isUserInteractionEnabled = true
+        
+        // Passing the Delegate for re-render
+        cell.rerenderDelegate = self
+        
+        // Styling the Cell
         cell.frame.size.height = 100
         cell.inviterUsernameLabel.text = invitationsLabelArray[indexPath.row]
         cell.inviterID = invitationsIDArray[indexPath.row]

@@ -10,20 +10,37 @@ import Foundation
 import UIKit
 import Firebase
 
+protocol RerenderInvitationsTableViewDelegate
+{
+    func RerenderInvitationsTableView()
+}
+
 class InvitesTableViewCell: UITableViewCell {
     @IBOutlet weak var inviterUsernameLabel: UILabel!
     @IBOutlet weak var inviteDenyButton: UIButton!
     @IBOutlet weak var inviteAcceptButton: UIButton!
     
     var inviterID: String!
+    
+    var ref = Database.database().reference()
     let userID = Auth.auth().currentUser?.uid
+    
+    var rerenderDelegate: RerenderInvitationsTableViewDelegate?
     
     @IBAction func acceptInvitation(sender: UIButton) {
         print(self.inviterID)
         
-        // USE InviterID and UserID to exchange friend list data
-        // Popup modal to show invitation accepted
-        // Delete Invitation
+        // Use InviterID and UserID to exchange friend list data
+        ref.child("users").child(userID!).child("friends").updateChildValues([inviterID: ["userDetails": ""]]) {error,ref in
+            self.ref.child("users").child(self.inviterID!).child("friends").updateChildValues([self.userID!: ["userDetails": ""]]) {error,ref in
+                print("Friend invitation Exchanged!")
+                // Delete Invitation
+                self.ref.child("users").child(self.userID!).child("invitations").child(self.inviterID).removeValue() { error, ref in
+                    // Call re-render on tableView
+                    self.rerenderDelegate?.RerenderInvitationsTableView()
+                }
+            }
+        }
     }
     
     @IBAction func denyInvitation(sender: UIButton) {
