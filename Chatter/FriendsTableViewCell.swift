@@ -7,3 +7,13 @@
 //
 
 import Foundation
+import UIKit
+import Firebase
+
+class FriendsTableViewCell: UITableViewCell {
+    @IBOutlet weak var friendAvatarButton: UIButton!
+    @IBOutlet weak var friendUsernameLabel: UILabel!
+    
+    var ref = Database.database().reference()
+    let userID = Auth.auth().currentUser?.uid
+}
