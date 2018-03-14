@@ -31,15 +31,17 @@ class InvitesTableViewCell: UITableViewCell {
         print(self.inviterID)
         
         // Use InviterID and UserID to exchange follower list data
-        ref.child("users").child(userID!).child("followers").updateChildValues([inviterID: ["userDetails": ""]]) {error,ref in
-            print("follower invitation Exchanged!")
-            // Delete Invitation
-            self.ref.child("users").child(self.userID!).child("invitations").child(self.inviterID).removeValue() { error, ref in
-                // Call re-render on tableView
-                self.rerenderDelegate?.RerenderInvitationsTableView()
-                
-                // Send notification to re-render followers tableView
-                NotificationCenter.default.post(name: .invitationAcceptedRerenderFollowers, object: nil)
+        ref.child("users").child(userID!).child("follower").updateChildValues([inviterID: ["userDetails": ""]]) {error,ref in
+            self.ref.child("users").child(self.inviterID!).child("following").updateChildValues([self.userID!: ["userDetails": ""]]) {error,ref in
+                print("follower invitation Exchanged!")
+                // Delete Invitation
+                self.ref.child("users").child(self.userID!).child("invitations").child(self.inviterID).removeValue() { error, ref in
+                    // Call re-render on tableView
+                    self.rerenderDelegate?.RerenderInvitationsTableView()
+                    
+                    // Send notification to re-render follower tableView
+                    NotificationCenter.default.post(name: .invitationAcceptedRerenderFollowers, object: nil)
+                }
             }
         }
     }

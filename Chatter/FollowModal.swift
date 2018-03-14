@@ -34,6 +34,7 @@ class FollowModal: UIViewController {
     }
     
     @IBAction func sendInvite(sender: AnyObject) {
+        print("INITIATE INVITATION")
         guard let inviteUsername = inviteUsernameInput.text else {return}
         
         ref.child("users").observeSingleEvent(of: .value, with: { (snapshot) in

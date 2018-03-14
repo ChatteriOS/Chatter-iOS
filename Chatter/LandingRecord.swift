@@ -217,14 +217,14 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
 
                         let childUpdates = ["\(countIdentifier)": chatterFeedSegment]
                         
-                        // Get the list of followers
-                        let followers = value!["followers"] as! NSDictionary
+                        // Get the list of follower
+                        let follower = value!["follower"] as! NSDictionary
                         
-                        // Update your Chatter feed, then feed in all followers
+                        // Update your Chatter feed, then feed in all follower
                         self.ref.child("users").child(userID!).child("chatterFeed").updateChildValues(childUpdates) {error, ref in
                             
                             // Iterate through each follower and update their feed
-                            for follower in followers {
+                            for follower in follower {
                                 let followerID = follower.key as? String
                                 self.ref.child("users").child(followerID!).child("chatterFeed").observeSingleEvent(of: .value, with: { (followerSnapshot) in
                                     let followerValue = followerSnapshot.value as? Any

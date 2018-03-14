@@ -15,6 +15,11 @@ protocol SwitchMenuFollowersViewDelegate
     func SwitchMenuFollowersView(toPage: String)
 }
 
+protocol SwitchMenuFollowingViewDelegate
+{
+    func SwitchMenuFollowingView(toPage: String)
+}
+
 protocol SwitchMenuInvitesViewDelegate
 {
     func SwitchMenuInvitesView(toPage: String)
@@ -31,6 +36,7 @@ class MenuView: UIViewController {
     
     var switchMenuFollowersDelegate:SwitchMenuFollowersViewDelegate?
     var switchMenuInvitesDelegate:SwitchMenuInvitesViewDelegate?
+    var switchMenuFollowingDelegate:SwitchMenuFollowingViewDelegate?
     
     override func viewDidLoad() {
         ref = Database.database().reference()
@@ -57,11 +63,15 @@ class MenuView: UIViewController {
     }
     
     @IBAction func goToFollowers(sender: AnyObject) {
-        switchMenuFollowersDelegate?.SwitchMenuFollowersView(toPage: "followersView")
+        switchMenuFollowersDelegate?.SwitchMenuFollowersView(toPage: "followerView")
     }
     
     @IBAction func goToInvites(sender: AnyObject) {
         switchMenuInvitesDelegate?.SwitchMenuInvitesView(toPage: "invitesView")
+    }
+    
+    @IBAction func goToFollowing(sender: AnyObject) {
+        switchMenuFollowingDelegate?.SwitchMenuFollowingView(toPage: "followingView")
     }
     
     @IBAction func signOut(sender: UIButton) {
