@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 import Firebase
 
-protocol SwitchMenuFriendsViewDelegate
+protocol SwitchMenuFollowersViewDelegate
 {
-    func SwitchMenuFriendsView(toPage: String)
+    func SwitchMenuFollowersView(toPage: String)
 }
 
 protocol SwitchMenuInvitesViewDelegate
@@ -29,7 +29,7 @@ class MenuView: UIViewController {
     var ref: DatabaseReference!
     let userID = Auth.auth().currentUser?.uid
     
-    var switchMenuFriendsDelegate:SwitchMenuFriendsViewDelegate?
+    var switchMenuFollowersDelegate:SwitchMenuFollowersViewDelegate?
     var switchMenuInvitesDelegate:SwitchMenuInvitesViewDelegate?
     
     override func viewDidLoad() {
@@ -56,8 +56,8 @@ class MenuView: UIViewController {
         })
     }
     
-    @IBAction func goToFriends(sender: AnyObject) {
-        switchMenuFriendsDelegate?.SwitchMenuFriendsView(toPage: "friendsView")
+    @IBAction func goToFollowers(sender: AnyObject) {
+        switchMenuFollowersDelegate?.SwitchMenuFollowersView(toPage: "followersView")
     }
     
     @IBAction func goToInvites(sender: AnyObject) {

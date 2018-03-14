@@ -20,12 +20,12 @@
 		1A2E99B92042389F009A674C /* Buttons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A2E99B82042389F009A674C /* Buttons.xcassets */; };
 		1A2E99BB20424449009A674C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A2E99BA20424449009A674C /* GoogleService-Info.plist */; };
 		1A40B9CD20426F10006D61CC /* DiscoverFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A40B9CC20426F10006D61CC /* DiscoverFeed.swift */; };
-		1A4DA0D32055E1B5009E1DC9 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4DA0D22055E1B5009E1DC9 /* FriendsView.swift */; };
+		1A4DA0D32055E1B5009E1DC9 /* FollowingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4DA0D22055E1B5009E1DC9 /* FollowingView.swift */; };
 		1A4DA0D52055EE85009E1DC9 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4DA0D42055EE85009E1DC9 /* MenuView.swift */; };
-		1A50570B2057A4940000F070 /* FriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A50570A2057A4940000F070 /* FriendsTableViewCell.swift */; };
+		1A50570B2057A4940000F070 /* FollowingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A50570A2057A4940000F070 /* FollowingsTableViewCell.swift */; };
 		1A928A7C20563A4F001434D0 /* InvitesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A928A7B20563A4F001434D0 /* InvitesView.swift */; };
 		1A928A7E20563B72001434D0 /* InvitesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A928A7D20563B72001434D0 /* InvitesTableViewCell.swift */; };
-		1AA4C6A12056181300AD3980 /* AddFriendPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4C6A02056181300AD3980 /* AddFriendPopup.swift */; };
+		1AA4C6A12056181300AD3980 /* FollowPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4C6A02056181300AD3980 /* FollowPopup.swift */; };
 		1AC61FBD204696CF0016AB83 /* LandingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC61FBC204696CF0016AB83 /* LandingRecord.swift */; };
 		1AD7925C20510C8B007131CB /* DrawWaveForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD7925B20510C8B007131CB /* DrawWaveForm.swift */; };
 		1AF2BD3D2043F79500AF1B8A /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF2BD3C2043F79500AF1B8A /* Login.swift */; };
@@ -79,12 +79,12 @@
 		1A2E99B82042389F009A674C /* Buttons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Buttons.xcassets; sourceTree = "<group>"; };
 		1A2E99BA20424449009A674C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1A40B9CC20426F10006D61CC /* DiscoverFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverFeed.swift; sourceTree = "<group>"; };
-		1A4DA0D22055E1B5009E1DC9 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
+		1A4DA0D22055E1B5009E1DC9 /* FollowingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingView.swift; sourceTree = "<group>"; };
 		1A4DA0D42055EE85009E1DC9 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
-		1A50570A2057A4940000F070 /* FriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewCell.swift; sourceTree = "<group>"; };
+		1A50570A2057A4940000F070 /* FollowingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingsTableViewCell.swift; sourceTree = "<group>"; };
 		1A928A7B20563A4F001434D0 /* InvitesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitesView.swift; sourceTree = "<group>"; };
 		1A928A7D20563B72001434D0 /* InvitesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitesTableViewCell.swift; sourceTree = "<group>"; };
-		1AA4C6A02056181300AD3980 /* AddFriendPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendPopup.swift; sourceTree = "<group>"; };
+		1AA4C6A02056181300AD3980 /* FollowPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowPopup.swift; sourceTree = "<group>"; };
 		1AC61FBC204696CF0016AB83 /* LandingRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingRecord.swift; sourceTree = "<group>"; };
 		1AD7925B20510C8B007131CB /* DrawWaveForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawWaveForm.swift; sourceTree = "<group>"; };
 		1AF2BD3C2043F79500AF1B8A /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
@@ -178,11 +178,11 @@
 				1A271485204939650058B33D /* ChatterFeedSegment.swift */,
 				1AF2BD422043FA0200AF1B8A /* Menu.swift */,
 				1A4DA0D42055EE85009E1DC9 /* MenuView.swift */,
-				1A4DA0D22055E1B5009E1DC9 /* FriendsView.swift */,
-				1A50570A2057A4940000F070 /* FriendsTableViewCell.swift */,
+				1A4DA0D22055E1B5009E1DC9 /* FollowingView.swift */,
+				1A50570A2057A4940000F070 /* FollowingsTableViewCell.swift */,
 				1A928A7B20563A4F001434D0 /* InvitesView.swift */,
 				1A928A7D20563B72001434D0 /* InvitesTableViewCell.swift */,
-				1AA4C6A02056181300AD3980 /* AddFriendPopup.swift */,
+				1AA4C6A02056181300AD3980 /* FollowPopup.swift */,
 				1AFE565F2047E9B400C9E8A2 /* DismissMenuAnimator.swift */,
 				1AFE56592047E4F100C9E8A2 /* Interactor.swift */,
 				1AFE565B2047E55700C9E8A2 /* MenuHelper.swift */,
@@ -538,12 +538,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				1AFE56602047E9B400C9E8A2 /* DismissMenuAnimator.swift in Sources */,
-				1AA4C6A12056181300AD3980 /* AddFriendPopup.swift in Sources */,
+				1AA4C6A12056181300AD3980 /* FollowPopup.swift in Sources */,
 				1AF2BD45204549B500AF1B8A /* SignUp.swift in Sources */,
 				1A271486204939650058B33D /* ChatterFeedSegment.swift in Sources */,
 				1AF2BD412043F8B500AF1B8A /* LandingPageViewController.swift in Sources */,
 				1AFE565A2047E4F100C9E8A2 /* Interactor.swift in Sources */,
-				1A4DA0D32055E1B5009E1DC9 /* FriendsView.swift in Sources */,
+				1A4DA0D32055E1B5009E1DC9 /* FollowingView.swift in Sources */,
 				1AC61FBD204696CF0016AB83 /* LandingRecord.swift in Sources */,
 				1AF2BD432043FA0200AF1B8A /* Menu.swift in Sources */,
 				1AFE56542047CB2400C9E8A2 /* ChatterFeed.swift in Sources */,
@@ -556,7 +556,7 @@
 				1AF2BD3D2043F79500AF1B8A /* Login.swift in Sources */,
 				1AFE565E2047E5A900C9E8A2 /* PresentMenuAnimator.swift in Sources */,
 				1A4DA0D52055EE85009E1DC9 /* MenuView.swift in Sources */,
-				1A50570B2057A4940000F070 /* FriendsTableViewCell.swift in Sources */,
+				1A50570B2057A4940000F070 /* FollowingsTableViewCell.swift in Sources */,
 				1A2E998720420A29009A674C /* AppDelegate.swift in Sources */,
 				1A40B9CD20426F10006D61CC /* DiscoverFeed.swift in Sources */,
 				1A928A7E20563B72001434D0 /* InvitesTableViewCell.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  FriendsViewController
+//  FollowersViewController
 //  Chatter
 //
 //  Created by Austen Ma on 3/11/18.
@@ -10,31 +10,31 @@ import Foundation
 import UIKit
 import Firebase
 
-class FriendsView: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class FollowersView: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var backToMenuButton: UIButton!
-    @IBOutlet weak var addFriendButton: UIButton!
-    @IBOutlet weak var friendsTableView: UITableView!
+    @IBOutlet weak var addFollowerButton: UIButton!
+    @IBOutlet weak var followersTableView: UITableView!
     
-    var switchDelegate:SwitchMenuFriendsViewDelegate?
+    var switchDelegate:SwitchMenuFollowersViewDelegate?
     
     var ref: DatabaseReference!
     let userID = Auth.auth().currentUser?.uid
     
-    var friendsLabelArray: [String]!
-    var friendsIDArray: [String]!
+    var followersLabelArray: [String]!
+    var followersIDArray: [String]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Listens for invitation Acceptance
-        NotificationCenter.default.addObserver(self, selector: #selector(invitationAccepted(notification:)), name: .invitationAcceptedRerenderFriends, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(invitationAccepted(notification:)), name: .invitationAcceptedRerenderFollowers, object: nil)
         
         ref = Database.database().reference()
         
-        friendsTableView.delegate = self
-        friendsTableView.dataSource = self
+        followersTableView.delegate = self
+        followersTableView.dataSource = self
         
-        RerendeFriendsTableView()
+        RerendeFollowersTableView()
     }
     
     override func didReceiveMemoryWarning() {
@@ -56,37 +56,37 @@ class FriendsView: UIViewController, UITableViewDataSource, UITableViewDelegate 
                        completion: { Void in()  }
         )
         
-        switchDelegate?.SwitchMenuFriendsView(toPage: "menuView")
+        switchDelegate?.SwitchMenuFollowersView(toPage: "menuView")
     }
     
-    func RerendeFriendsTableView() {
-        self.friendsLabelArray = []
-        self.friendsIDArray = []
+    func RerendeFollowersTableView() {
+        self.followersLabelArray = []
+        self.followersIDArray = []
         
         // Grab the invites array from DB
-        self.ref.child("users").child(userID!).child("friends").observeSingleEvent(of: .value, with: { (snapshot) in
+        self.ref.child("users").child(userID!).child("followers").observeSingleEvent(of: .value, with: { (snapshot) in
             let value = snapshot.value as? NSDictionary
             
             if (value != nil) {
                 for user in value! {
-                    print("Friend: \(user)")
-                    let friendID = user.key as? String
+                    print("Follower: \(user)")
+                    let followerID = user.key as? String
                     
                     // Retrieve username with ID
-                    self.ref.child("users").child(friendID!).child("username").observeSingleEvent(of: .value, with: { (snapshot) in
-                        let friendUsername = snapshot.value as? String
+                    self.ref.child("users").child(followerID!).child("username").observeSingleEvent(of: .value, with: { (snapshot) in
+                        let followerUsername = snapshot.value as? String
                         
-                        self.friendsLabelArray.append(friendUsername!)
-                        self.friendsIDArray.append(friendID!)
+                        self.followersLabelArray.append(followerUsername!)
+                        self.followersIDArray.append(followerID!)
                         
                         // Populate the Table View as the invitations are loaded
-                        self.friendsTableView.reloadData()
+                        self.followersTableView.reloadData()
                     })  { (error) in
                         print(error.localizedDescription)
                     }
                 }
             }   else {
-                self.friendsTableView.reloadData()
+                self.followersTableView.reloadData()
             }
         })  { (error) in
             print(error.localizedDescription)
@@ -94,13 +94,13 @@ class FriendsView: UIViewController, UITableViewDataSource, UITableViewDelegate 
     }
     
     @objc func invitationAccepted(notification: NSNotification) {
-        RerendeFriendsTableView()
+        RerendeFollowersTableView()
     }
     
     // Table View Methods --------------------------------------------------------------------------------
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.friendsLabelArray.count
+        return self.followersLabelArray.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -109,7 +109,7 @@ class FriendsView: UIViewController, UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FriendsTableViewCell") as! FriendsTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FollowersTableViewCell") as! FollowersTableViewCell
         
         // To turn off darken on select
         cell.selectionStyle = UITableViewCellSelectionStyle.none
@@ -118,11 +118,11 @@ class FriendsView: UIViewController, UITableViewDataSource, UITableViewDelegate 
         
         // Styling the Cell
         cell.frame.size.height = 100
-        cell.friendUsernameLabel.text = friendsLabelArray[indexPath.row]
-        let firstnameLetter = String(describing: friendsLabelArray[indexPath.row].first!).uppercased()
-        cell.friendAvatarButton.setTitle(firstnameLetter, for: .normal)
+        cell.followerUsernameLabel.text = followersLabelArray[indexPath.row]
+        let firstnameLetter = String(describing: followersLabelArray[indexPath.row].first!).uppercased()
+        cell.followerAvatarButton.setTitle(firstnameLetter, for: .normal)
         let randomColor = generateRandomColor()
-        let currCellButton = cell.friendAvatarButton
+        let currCellButton = cell.followerAvatarButton
         configureAvatarButton(button: currCellButton!, color: randomColor)
         return cell
     }

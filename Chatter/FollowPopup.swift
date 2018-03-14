@@ -1,5 +1,5 @@
 //
-//  AddFriendPopup.swift
+//  FollowPopup.swift
 //  Chatter
 //
 //  Created by Austen Ma on 3/11/18.
@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Firebase
 
-class AddFriendModal: UIViewController {
+class FollowModal: UIViewController {
     @IBOutlet weak var modalView: UIView!
     @IBOutlet weak var inviteUsernameInput: UITextField!
     

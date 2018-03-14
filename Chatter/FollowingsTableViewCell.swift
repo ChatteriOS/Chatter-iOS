@@ -1,5 +1,5 @@
 //
-//  FriendsTableViewCell.swift
+//  FollowersTableViewCell.swift
 //  Chatter
 //
 //  Created by Austen Ma on 3/12/18.
@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 import Firebase
 
-class FriendsTableViewCell: UITableViewCell {
-    @IBOutlet weak var friendAvatarButton: UIButton!
-    @IBOutlet weak var friendUsernameLabel: UILabel!
+class FollowersTableViewCell: UITableViewCell {
+    @IBOutlet weak var followerAvatarButton: UIButton!
+    @IBOutlet weak var followerUsernameLabel: UILabel!
     
     var ref = Database.database().reference()
     let userID = Auth.auth().currentUser?.uid

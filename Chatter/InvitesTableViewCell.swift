@@ -30,18 +30,16 @@ class InvitesTableViewCell: UITableViewCell {
     @IBAction func acceptInvitation(sender: UIButton) {
         print(self.inviterID)
         
-        // Use InviterID and UserID to exchange friend list data
-        ref.child("users").child(userID!).child("friends").updateChildValues([inviterID: ["userDetails": ""]]) {error,ref in
-            self.ref.child("users").child(self.inviterID!).child("friends").updateChildValues([self.userID!: ["userDetails": ""]]) {error,ref in
-                print("Friend invitation Exchanged!")
-                // Delete Invitation
-                self.ref.child("users").child(self.userID!).child("invitations").child(self.inviterID).removeValue() { error, ref in
-                    // Call re-render on tableView
-                    self.rerenderDelegate?.RerenderInvitationsTableView()
-                    
-                    // Send notification to re-render Friends tableView
-                    NotificationCenter.default.post(name: .invitationAcceptedRerenderFriends, object: nil)
-                }
+        // Use InviterID and UserID to exchange follower list data
+        ref.child("users").child(userID!).child("followers").updateChildValues([inviterID: ["userDetails": ""]]) {error,ref in
+            print("follower invitation Exchanged!")
+            // Delete Invitation
+            self.ref.child("users").child(self.userID!).child("invitations").child(self.inviterID).removeValue() { error, ref in
+                // Call re-render on tableView
+                self.rerenderDelegate?.RerenderInvitationsTableView()
+                
+                // Send notification to re-render followers tableView
+                NotificationCenter.default.post(name: .invitationAcceptedRerenderFollowers, object: nil)
             }
         }
     }

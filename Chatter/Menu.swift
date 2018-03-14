@@ -10,8 +10,8 @@ import Foundation
 import UIKit
 import Firebase
 
-class Menu: UIViewController, SwitchMenuFriendsViewDelegate, SwitchMenuInvitesViewDelegate {
-    @IBOutlet weak var friendsView: UIView!
+class Menu: UIViewController, SwitchMenuFollowersViewDelegate, SwitchMenuInvitesViewDelegate {
+    @IBOutlet weak var followersView: UIView!
     @IBOutlet var menuView: UIView!
     @IBOutlet weak var invitesView: UIView!
     
@@ -25,11 +25,11 @@ class Menu: UIViewController, SwitchMenuFriendsViewDelegate, SwitchMenuInvitesVi
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? MenuView {
-            destination.switchMenuFriendsDelegate = self
+            destination.switchMenuFollowersDelegate = self
             destination.switchMenuInvitesDelegate = self
         }
         
-        if let destination = segue.destination as? FriendsView {
+        if let destination = segue.destination as? FollowersView {
             destination.switchDelegate = self
         }
         
@@ -38,17 +38,17 @@ class Menu: UIViewController, SwitchMenuFriendsViewDelegate, SwitchMenuInvitesVi
         }
     }
 
-    func SwitchMenuFriendsView(toPage: String) {
-        if (toPage == "friendsView") {
+    func SwitchMenuFollowersView(toPage: String) {
+        if (toPage == "followersView") {
             UIView.animate(withDuration: 0.5, animations: {
                 self.menuView.alpha = 0.0
                 self.invitesView.alpha = 0.0
-                self.friendsView.alpha = 1.0
+                self.followersView.alpha = 1.0
             })
         }   else {
             UIView.animate(withDuration: 0.5, animations: {
                 self.menuView.alpha = 1.0
-                self.friendsView.alpha = 0.0
+                self.followersView.alpha = 0.0
                 self.invitesView.alpha = 0.0
             })
         }
@@ -58,7 +58,7 @@ class Menu: UIViewController, SwitchMenuFriendsViewDelegate, SwitchMenuInvitesVi
         if (toPage == "invitesView") {
             UIView.animate(withDuration: 0.5, animations: {
                 self.menuView.alpha = 0.0
-                self.friendsView.alpha = 0.0
+                self.followersView.alpha = 0.0
                 self.invitesView.alpha = 1.0
             })
         }   else {

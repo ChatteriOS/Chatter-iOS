@@ -217,35 +217,35 @@ class LandingRecord: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDel
 
                         let childUpdates = ["\(countIdentifier)": chatterFeedSegment]
                         
-                        // Get the list of friends
-                        let friends = value!["friends"] as! NSDictionary
+                        // Get the list of followers
+                        let followers = value!["followers"] as! NSDictionary
                         
-                        // Update your Chatter feed, then feed in all friends
+                        // Update your Chatter feed, then feed in all followers
                         self.ref.child("users").child(userID!).child("chatterFeed").updateChildValues(childUpdates) {error, ref in
                             
-                            // Iterate through each friend and update their feed
-                            for friend in friends {
-                                let friendID = friend.key as? String
-                                self.ref.child("users").child(friendID!).child("chatterFeed").observeSingleEvent(of: .value, with: { (friendSnapshot) in
-                                    let friendValue = friendSnapshot.value as? Any
-                                    let friendChatterFeedCount = (friendValue! as AnyObject).count
+                            // Iterate through each follower and update their feed
+                            for follower in followers {
+                                let followerID = follower.key as? String
+                                self.ref.child("users").child(followerID!).child("chatterFeed").observeSingleEvent(of: .value, with: { (followerSnapshot) in
+                                    let followerValue = followerSnapshot.value as? Any
+                                    let followerChatterFeedCount = (followerValue! as AnyObject).count
                                     
-                                    // Generating friend chatterFeed # identifier
-                                    var friendCountIdentifier: Int
-                                    if ((friendChatterFeedCount) != nil) {
-                                        friendCountIdentifier = friendChatterFeedCount!
+                                    // Generating follower chatterFeed # identifier
+                                    var followerCountIdentifier: Int
+                                    if ((followerChatterFeedCount) != nil) {
+                                        followerCountIdentifier = followerChatterFeedCount!
                                     }   else {
-                                        friendCountIdentifier = 0
+                                        followerCountIdentifier = 0
                                     }
                                     
-                                    // Construct friend ChatterFeed segment
-                                    var friendChatterFeedSegment = Dictionary<String, Any>()
-                                    friendChatterFeedSegment = ["id": fullAudioID, "userDetails": userID!, "dateCreated": self.getCurrentDate()]
+                                    // Construct follower ChatterFeed segment
+                                    var followerChatterFeedSegment = Dictionary<String, Any>()
+                                    followerChatterFeedSegment = ["id": fullAudioID, "userDetails": userID!, "dateCreated": self.getCurrentDate()]
                                     
-                                    let friendChildUpdates = ["\(friendCountIdentifier)": friendChatterFeedSegment]
+                                    let followerChildUpdates = ["\(followerCountIdentifier)": followerChatterFeedSegment]
                                     
-                                    self.ref.child("users").child(friendID!).child("chatterFeed").updateChildValues(friendChildUpdates) {error, ref in
-                                        print("UPDATE PROCESS COMPLETE: \(friendID)")
+                                    self.ref.child("users").child(followerID!).child("chatterFeed").updateChildValues(followerChildUpdates) {error, ref in
+                                        print("UPDATE PROCESS COMPLETE: \(followerID)")
                                     }
                                 })
                             }
