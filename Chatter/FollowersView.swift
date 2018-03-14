@@ -12,7 +12,6 @@ import Firebase
 
 class FollowersView: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var backToMenuButton: UIButton!
-    @IBOutlet weak var addFollowerButton: UIButton!
     @IBOutlet weak var followerTableView: UITableView!
     
     var switchDelegate:SwitchMenuFollowersViewDelegate?

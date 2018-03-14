@@ -42,6 +42,11 @@ class FollowingView: UIViewController, UITableViewDataSource, UITableViewDelegat
     @IBAction func goBackToMenu(sender: AnyObject) {
         backToMenuButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         
+        // Obsererver for accepted follow requests
+        self.ref.child("users").child(userID!).child("chatterFeed").observe(.childAdded, with: { (snapshot) -> Void in
+            self.RerenderFollowingTableView()
+        })
+        
         UIView.animate(withDuration: 1.25,
                        delay: 0,
                        usingSpringWithDamping: CGFloat(0.40),

@@ -598,14 +598,6 @@
                                     <action selector="goBackToMenuWithSender:" destination="yQP-zv-6jl" eventType="touchUpInside" id="zbb-kb-WDe"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9e4-By-9vf">
-                                <rect key="frame" x="249" y="32" width="32" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button" image="Add"/>
-                                <connections>
-                                    <segue destination="8qB-VU-80q" kind="presentation" id="OQm-1a-m65"/>
-                                </connections>
-                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IRv-eo-eqP">
                                 <rect key="frame" x="0.0" y="87" width="297" height="587"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -659,7 +651,6 @@
                         <viewLayoutGuide key="safeArea" id="vfE-N1-Z5O"/>
                     </view>
                     <connections>
-                        <outlet property="addFollowerButton" destination="9e4-By-9vf" id="ixx-ub-M5A"/>
                         <outlet property="backToMenuButton" destination="4AZ-Z9-Jf1" id="QMl-qq-aDB"/>
                         <outlet property="followerTableView" destination="IRv-eo-eqP" id="f66-NX-uTs"/>
                     </connections>
@@ -673,7 +664,7 @@
             <objects>
                 <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="8qB-VU-80q" customClass="FollowModal" customModule="Chatter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jg7-OD-p3K">
-                        <rect key="frame" x="0.0" y="0.0" width="297" height="674"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fms-zi-EeQ">
